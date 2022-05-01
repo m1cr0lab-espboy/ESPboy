@@ -1,0 +1,61 @@
+{
+    "name": "ESPboy",
+    "version": "1.0.0",
+    "description": "ESPboy Handheld Driver",
+    "keywords": "espboy",
+    "license": "GPL-3.0",
+    "frameworks": "arduino",
+    "platforms": "espressif8266",
+    "authors": {
+        "name": "m1cr0lab",
+        "url": "https://github.com/m1cr0lab",
+        "maintainer": true
+    },
+    "repository":
+    {
+      "type": "git",
+      "url": "https://github.com/m1cr0lab-espboy/ESPboy"
+    },
+    "dependencies": [
+        {
+            "owner": "adafruit",
+            "name": "Adafruit MCP4725",
+            "version": "^2.0.0"
+        },
+        {
+            "owner": "adafruit",
+            "name": "Adafruit MCP23017 Arduino Library",
+            "version": "^2.1.0"
+        },
+        {
+            "owner": "lovyan03",
+            "name": "LovyanGFX",
+            "version": "https://github.com/lovyan03/LovyanGFX#develop"
+        }
+    ],
+    "examples": [
+        {
+            "name": "Examples",
+            "base": "examples",
+             "files": [
+                "1-bootstrap.cpp",
+                "2-start-logo.cpp",
+                "3-buttons.cpp",
+                "4-neopixel.cpp",
+                "5-game-of-life.cpp",
+                "6-snake.cpp",
+                "7-spaceship.cpp"
+            ]
+        }
+    ],
+    "export": {
+        "include": [
+            "Readme.md",
+            "LICENSE",
+            "examples/*",
+            "include/*",
+            "src/*",
+            "library.json"
+        ]
+    }
+}
