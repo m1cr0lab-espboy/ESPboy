@@ -96,7 +96,7 @@ Well, now that the development environment is installed, we can get down to busi
 
 For the moment, PlatformIO does not yet include a development platform for a particular family of microcontrollers. When creating a new project, we have to specify the type of board we want to use. From there, PlatformIO will automatically download all the necessary tools for programming, compiling and uploading the code to the selected board.
 
-The ESPboy embeds an ESP8266 on a <span class="emphasis">WeMos D1 mini</span>board.  
+The ESPboy embeds an ESP8266 on a <span class="emphasis">WeMos D1 mini</span> board.  
 So let's see how to create a new project by setting the right board:
 
 <video controls muted preload="auto" class="media round-10 shadow">
@@ -152,7 +152,7 @@ Now we just need to add a dependency to the ESPboy library to start coding.
 First of all, we rename the working environment by replacing `d1_mini` with `espboy`. Then we add a dependency to the ESPboy library:
 
 ```ini
-lib_deps = https://github.com/m1cr0lab-esbboy/ESPboy
+lib_deps = https://github.com/m1cr0lab-espboy/ESPboy
 ```
 
 Simply saving the `platformio.ini` file then triggers the <span class="emphasis">automatic download</span> of the ESPboy library from its GitHub repository, <span class="emphasis">along with all its own dependencies!</span> Isn't that magic? I told you PlatformIO would make things easier.  :wink:
