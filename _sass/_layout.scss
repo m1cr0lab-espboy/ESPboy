@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono');
+
+html {
+    // font-family: Helvetica, Arial, sans-serif;
+    font-family: Roboto, sans-serif;
+    font-size: 12pt;
+    // background: linear-gradient(135deg, hsl(210, 10, 5) 10%, hsl(210, 10, 10) 50%);
+    background-color: hsl(210, 10, 7);
+    color: hsl(210, 20, 50);
+    line-height: 1.75rem;
+    text-align: justify;
+    scroll-behavior: smooth;
+}
+
+body {
+    display: grid;
+    justify-items: center;
+    margin: 0 2em 4em 2em;
+}
+
+.page {
+    max-width: 768px;
+}
+
+h1, h2, h3 {
+    margin: 2em 0 1.25em 0;
+    color: #fff;
+}
+
+a {
+    text-decoration: none;
+    color: hsl(210, 100, 60);
+    &:hover { color: hsl(210, 100, 70); }
+    &.button {
+        display: inline-block;
+        margin: .5em auto;
+        padding: .5rem 1rem;
+        border-radius: 8px;
+        background: linear-gradient(hsl(210, 100, 50), hsl(210, 100, 30));
+        color: #fff;
+        box-shadow: 0 4px 8px #000;
+        &:hover { background: linear-gradient(hsl(210, 100, 60), hsl(210, 100, 40)); }
+    }
+}
+
+.espboy {
+    position: relative;
+    width: 272px;
+    height: 512px;
+    background-image: url('../images/espboy-272x512.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    image-rendering: pixelated;
+    filter: drop-shadow(0 4px 8px #000);
+
+    img {
+        position: absolute;
+        left: 44px;
+        top: 43px;
+        width: 184px;
+        height: 184px;
+        image-rendering: pixelated;
+    }
+
+    &.small {
+        width: 136px;
+        height: 256px;
+
+        img {
+            width: 92px;
+            height: 92px;
+            left: 22px;
+            top: 22px;
+        }
+    }
+}
+
+.media {
+    width: 100%;
+    margin: .5rem auto;
+}
+
+.center {
+    text-align: center;
+}
+
+.round-10 {
+    border-radius: 8px;
+}
+
+.shadow {
+    box-shadow: 0 4px 8px #000;
+}
+
+.emphasis {
+    color: hsl(180, 50, 50);
+}
+
+.emoji {
+    vertical-align: -15%;
+}

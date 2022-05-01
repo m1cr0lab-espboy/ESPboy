@@ -1,0 +1,9 @@
+title: "ESPboy Library"
+author: "m1cr0lab"
+
+sass:
+  style: compressed
+  sourcemap: never
+
+plugins:
+  - jemoji

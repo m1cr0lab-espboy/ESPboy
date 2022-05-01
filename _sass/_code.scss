@@ -1,0 +1,44 @@
+$code_color: hsl(210, 100, 70);
+$code_bg_tint: hsl(210, 40, 15);
+
+code.highlighter-rouge {
+    padding: .3rem .5rem;
+    border-radius: 4px;
+}
+
+div.highlighter-rouge {
+    margin: .5em auto;
+    border-radius: 8px;
+    box-shadow: inset 0 4px 8px rgba(#000, .5);
+
+    pre.highlight {
+        padding: .5em 1em;
+        line-height: 1.5em;
+    }
+}
+
+.highlighter-rouge {
+
+    font-family: 'Roboto Mono', monospace;
+    font-size: .9em;
+    color: $code_color;
+    background-color: $code_bg_tint;
+
+    .highlight, code {
+        
+        .k   { color: hsl(210, 100,  60); } // keyword
+        .o   { color: hsl(180,  80,  50); } // operator
+        .p   { color: hsl(180,  80,  50); } // punctuation
+        .s   { color: hsl( 50, 100,  75); } // string
+        .cp  { color: hsl(200, 100,  50); } // preproc
+        .cpf { color: hsl(  0,   0, 100); } // preproc 2
+        .kt  { color: hsl(240, 100,  80); } // type
+        .nn  { color: hsl(203,  97,  55); } // namespace
+        .mi  { color: hsl(160, 100,  50); } // int
+        .mh  { color: hsl(160, 100,  50); } // hex
+        .py  { color: hsl(240, 100,  80); } // property
+
+        .s, .nn, .cpf {font-weight: bold; }
+
+    }
+}
