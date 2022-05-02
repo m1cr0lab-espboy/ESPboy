@@ -4,7 +4,7 @@
 
 This library provides a driver for the [ESPboy][espboy] handheld designed by Roman Sokolov.
 
-It library relies on the following dependencies:
+It relies on the following dependencies:
 
 - [Adafruit MCP23017 Arduino Library][mcp23017]
 - [Adafruit MCP4725 Arduino Library][mcp4725]
@@ -14,7 +14,7 @@ I noticed that most of the developments around the ESPboy have embraced Bodmer's
 
 ## Getting started
 
-[Please read the documentation][doc].
+[Please read the user guide][doc].
 
 
 [espboy]:     https://www.espboy.com/
@@ -23,4 +23,4 @@ I noticed that most of the developments around the ESPboy have embraced Bodmer's
 [lovyangfx]:  https://github.com/lovyan03/LovyanGFX
 [tftespi]:    https://github.com/Bodmer/TFT_eSPI
 [lovyan8266]: https://github.com/lovyan03/LovyanGFX/issues/130
-[doc]:       https://m1cr0lab-espboy.github.io/ESPboy
+[doc]:        https://m1cr0lab-espboy.github.io/ESPboy
