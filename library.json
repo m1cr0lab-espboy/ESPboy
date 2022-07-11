@@ -30,7 +30,7 @@
         {
             "owner": "lovyan03",
             "name": "LovyanGFX",
-            "version": "https://github.com/lovyan03/LovyanGFX#develop"
+            "version": "^0.4.4"
         }
     ],
     "examples": [
