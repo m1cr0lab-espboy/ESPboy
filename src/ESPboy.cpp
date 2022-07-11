@@ -13,53 +13,99 @@ ESPboy espboy;
 
 void ESPboy::begin(const bool show_espboy_logo, const uint16_t wait_ms) {
 
-    _frame_count = _fps = 0;
+    if (_initialized) return;
 
-    _initTFT();
-    _initMCP4725();
-    _initMCP23017();
+    _init();
 
-    _dac.setVoltage(show_espboy_logo ? 0 : 4095, false);
+    dac.setVoltage(show_espboy_logo ? 0 : 4095, false);
 
     if (show_espboy_logo) {
 
-        _drawLogo();
-        fadeIn();  while (_fading.active) _fade(); delay(wait_ms);
-        fadeOut(); while (_fading.active) _fade();
-        tft.fillScreen(0);
-        fadeIn();
+        // tft.pushImage(
+        //     (TFT_WIDTH  - ESPBOY_LOGO_WIDTH)  >> 1,
+        //     (TFT_HEIGHT - ESPBOY_LOGO_HEIGHT) >> 1,
+        //     ESPBOY_LOGO_WIDTH,
+        //     ESPBOY_LOGO_HEIGHT,
+        //     ESPBOY_LOGO
+        // );
+
+        uint8_t h = (TFT_HEIGHT - ESPBOY_LOGO_HEIGHT - 3 - 1 - 3 - 8) >> 1;
+
+        tft.drawBitmap(
+            (TFT_WIDTH  - ESPBOY_LOGO_WIDTH) >> 1,
+            h,
+            ESPBOY_LOGO,
+            ESPBOY_LOGO_WIDTH,
+            ESPBOY_LOGO_HEIGHT,
+            TFT_YELLOW
+        );
+
+        tft.drawFastHLine(42, h + ESPBOY_LOGO_HEIGHT + 3, 43, TFT_YELLOW);
+        tft.setTextColor(TFT_YELLOW);
+        tft.drawString(F("ESPboy"), 46, h + ESPBOY_LOGO_HEIGHT + 3 + 1 + 3);
+
+        _fadeInOut(wait_ms);
 
     }
+
+    _initialized = true;
     
 }
 
 void ESPboy::begin(const uint8_t logo_width, const uint8_t logo_height, const uint16_t *logo_data, const uint16_t wait_ms) {
 
-    _frame_count = _fps = 0;
+    if (_initialized) return;
 
-    _initTFT();
-    _initMCP4725();
-    _initMCP23017();
+    _init();
 
-    _dac.setVoltage(0, false);
-    _drawLogo(logo_width, logo_height, logo_data);
-    fadeIn();  while (_fading.active) _fade(); delay(wait_ms);
-    fadeOut(); while (_fading.active) _fade();
-    tft.fillScreen(0);
-    fadeIn();
+    dac.setVoltage(0, false);
+
+    tft.pushImage(
+        (TFT_WIDTH  - logo_width)  >> 1,
+        (TFT_HEIGHT - logo_height) >> 1,
+        logo_width,
+        logo_height,
+        logo_data
+    );
+
+    _fadeInOut(wait_ms);
+
+    _initialized = true;
 
 }
 
-void ESPboy::update() {
+void ESPboy::_init() {
     
-    if (_fading.active) _fade();
+    _frame_count = _fps = 0;
 
-    button.read(_buttons = ~(_mpx.readGPIOAB() & 0xff));
+    _initMCP4725();
+    _initMCP23017();
+    _initTFT();
 
-    pixel.update();
+    _buttons = ~(mcp.readGPIOAB() & 0xff);
+
+}
+
+void ESPboy::_initMCP4725() {
+
+    dac.begin(0x60);
+
+}
+
+void ESPboy::_initMCP23017() {
+
+    mcp.begin_I2C();
+
+    // Buttons
+    for (uint8_t i=0; i<8; ++i) mcp.pinMode(i, INPUT_PULLUP);
+
+    // TFT Screen
+    mcp.pinMode(_MCP23017_TFT_CS_PIN, OUTPUT);
+    mcp.digitalWrite(_MCP23017_TFT_CS_PIN, LOW);
+
+    // NeoPixel LED
+    pixel.begin(mcp);
     
-    _updateFPS();
-
 }
 
 void ESPboy::_initTFT() {
@@ -68,29 +114,22 @@ void ESPboy::_initTFT() {
 
 }
 
-void ESPboy::_initMCP4725() {
-
-    _dac.begin(0x60);
-
-}
-
-void ESPboy::_initMCP23017() {
-
-    _mpx.begin_I2C();
-
-    // Buttons
-    for (uint8_t i=0; i<8; ++i) _mpx.pinMode(i, INPUT_PULLUP);
-
-    // NeoPixel LED
-    pixel.begin(_mpx);
+void ESPboy::update() {
     
+    if (_fading.active) _fade();
+
+    button.read((_buttons = ~(mcp.readGPIOAB() & 0xff)));
+
+    pixel.update();
+    
+    _updateFPS();
+
 }
 
-uint8_t ESPboy::buttons() const {
+uint8_t ESPboy::buttons() const { return _buttons; }
 
-    return _buttons;
-
-}
+// To please Roman
+uint8_t ESPboy::getKeys() const { return _buttons; }
 
 void ESPboy::_updateFPS() {
 
@@ -113,20 +152,12 @@ uint32_t ESPboy::fps() const {
 
 }
 
-void ESPboy::_drawLogo() {
+void ESPboy::_fadeInOut(const uint16_t wait_ms) {
 
-    _drawLogo(pgm_read_byte(&ESPBOY_LOGO_WIDTH), pgm_read_byte(&ESPBOY_LOGO_HEIGHT), ESPBOY_LOGO);
-
-}
-
-void ESPboy::_drawLogo(const uint8_t width, const uint8_t height, const uint16_t *data) {
-
-    LGFX_Sprite logo(&tft);
-
-    logo.createSprite(width, height);
-    logo.pushImage(0, 0, width, height, data);
-    logo.pushSprite((TFT_WIDTH - width) >> 1, (TFT_HEIGHT - height) >> 1);
-    logo.deleteSprite();
+    fadeIn();  while (_fading.active) _fade(); delay(wait_ms);
+    fadeOut(); while (_fading.active) _fade();
+    tft.fillScreen(0);
+    fadeIn();
 
 }
 
@@ -150,6 +181,25 @@ void ESPboy::fadeOut() {
 
 }
 
+void ESPboy::dim(uint16_t const level) {
+
+    switch (level) {
+
+        case _DAC_MIN:
+            dac.setVoltage(0, false);
+            break;
+
+        case _DAC_MAX:
+            dac.setVoltage(4095, false);
+            break;
+        
+        default:
+            dac.setVoltage(level < 4095 ? level : 4095, false);
+
+    }
+
+}
+
 void ESPboy::_fade() {
 
     const uint32_t now = micros();
@@ -163,21 +213,7 @@ void ESPboy::_fade() {
             _fading.level  = _fading.inc ? _DAC_MAX : _DAC_MIN;
         }
 
-
-        switch (_fading.level) {
-
-            case _DAC_MIN:
-                _dac.setVoltage(0, false);
-                break;
-
-            case _DAC_MAX:
-                _dac.setVoltage(4095, false);
-                break;
-            
-            default:
-                _dac.setVoltage(_fading.level, false);
-
-        }
+        dim(_fading.level);
 
         _fading.last_us = now;
 

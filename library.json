@@ -2,7 +2,7 @@
     "name": "ESPboy",
     "version": "1.0.0",
     "description": "ESPboy Handheld Driver",
-    "keywords": "espboy",
+    "keywords": "espboy, esp8266, retrogaming, handheld",
     "license": "GPL-3.0",
     "frameworks": "arduino",
     "platforms": "espressif8266",

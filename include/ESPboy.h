@@ -20,6 +20,17 @@
 #include "NeoPixel.h"
 #include "espboy-logo.h"
 
+// To please Roman
+constexpr uint8_t PAD_LEFT  = 0x01;
+constexpr uint8_t PAD_UP    = 0x02;
+constexpr uint8_t PAD_DOWN  = 0x04;
+constexpr uint8_t PAD_RIGHT = 0x08;
+constexpr uint8_t PAD_ACT   = 0x10;
+constexpr uint8_t PAD_ESC   = 0x20;
+constexpr uint8_t PAD_LFT   = 0x40;
+constexpr uint8_t PAD_RGT   = 0x80;
+constexpr uint8_t PAD_ANY   = 0xff;
+
 constexpr uint8_t TFT_WIDTH  = 128;
 constexpr uint8_t TFT_HEIGHT = 128;
 
@@ -27,8 +38,12 @@ class ESPboy {
 
     private:
 
+        static constexpr uint8_t _MCP23017_TFT_CS_PIN = 8;
+
         static constexpr uint16_t _DAC_MIN = 650;
         static constexpr uint16_t _DAC_MAX = 1000;
+
+        bool _initialized = false;
 
         struct Fading {
 
@@ -38,41 +53,43 @@ class ESPboy {
             bool     active;
 
         };
-        
-        Adafruit_MCP4725  _dac;
-        Adafruit_MCP23X17 _mpx;
 
         uint8_t  _buttons;
         uint32_t _frame_count;
         uint32_t _fps;
         Fading   _fading;
 
-        void _initTFT();
+        void _init();
         void _initMCP4725();
         void _initMCP23017();
+        void _initTFT();
         void _updateFPS();
 
-        void _drawLogo();
-        void _drawLogo(const uint8_t width, const uint8_t height, const uint16_t *data);
+        void _fadeInOut(const uint16_t wait_ms = 0);
         void _fade();
 
     public:
+
+        Adafruit_MCP4725  dac;
+        Adafruit_MCP23X17 mcp;
 
         LGFX     tft;
         Button   button;
         NeoPixel pixel;
 
-        void begin(const bool show_espboy_logo = true, const uint16_t wait_ms = 0);
-        void begin(const uint8_t logo_width, const uint8_t logo_height, const uint16_t *logo_data, const uint16_t wait_ms = 0);
+        void begin(const bool show_espboy_logo = true, const uint16_t wait_ms = 1000);
+        void begin(const uint8_t logo_width, const uint8_t logo_height, const uint16_t *logo_data, const uint16_t wait_ms = 1000);
         void update();
 
         uint8_t buttons() const;
+        uint8_t getKeys() const;
 
         uint32_t fps() const;
 
         bool fading() const;
         void fadeIn();
         void fadeOut();
+        void dim(uint16_t const level);
 
 };
 

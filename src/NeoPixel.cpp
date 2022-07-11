@@ -9,12 +9,12 @@
  */
 #include "NeoPixel.h"
 
-void NeoPixel::begin(Adafruit_MCP23X17 &mpx) {
+void NeoPixel::begin(Adafruit_MCP23X17 &mcp) {
 
     pinMode(_LED_PIN, OUTPUT);
 
-    _mpx = &mpx;
-    _mpx->pinMode(_MCP23017_LOCK_PIN, OUTPUT);
+    _mcp = &mcp;
+    _mcp->pinMode(_MCP23017_LED_LOCK_PIN, OUTPUT);
 
     _fx = _FX::NONE;
     
@@ -213,8 +213,8 @@ void IRAM_ATTR NeoPixel::show(const uint32_t color) const {
     mask  = 0x800000;
     start = 0;
 
-    GPIO_REG_WRITE(GPIO_OUT_W1TC_ADDRESS, pin_mask); // light on the onboard LED
-    _mpx->digitalWrite(_MCP23017_LOCK_PIN, HIGH);    // and open the transistor lock
+    GPIO_REG_WRITE(GPIO_OUT_W1TC_ADDRESS, pin_mask);  // light on the onboard LED
+    _mcp->digitalWrite(_MCP23017_LED_LOCK_PIN, HIGH); // and open the transistor lock
 
     os_intr_lock();
 
@@ -236,7 +236,7 @@ void IRAM_ATTR NeoPixel::show(const uint32_t color) const {
 
     os_intr_unlock();
 
-    _mpx->digitalWrite(_MCP23017_LOCK_PIN, LOW);     // close the transistor lock
+    _mcp->digitalWrite(_MCP23017_LED_LOCK_PIN, LOW); // close the transistor lock
     GPIO_REG_WRITE(GPIO_OUT_W1TS_ADDRESS, pin_mask); // light off the onboard LED
 
 }

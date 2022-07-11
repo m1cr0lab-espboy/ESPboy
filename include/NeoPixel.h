@@ -25,8 +25,8 @@ class NeoPixel {
 
         };
 
-        static constexpr uint8_t _LED_PIN           = D4;
-        static constexpr uint8_t _MCP23017_LOCK_PIN = 9;
+        static constexpr uint8_t _LED_PIN               = D4;
+        static constexpr uint8_t _MCP23017_LED_LOCK_PIN = 9;
 
         static constexpr uint8_t CPU_FREQ       = F_CPU / 80000000L;
         static constexpr uint8_t CYCLES_800_T0H = CPU_FREQ * 32;
@@ -42,7 +42,7 @@ class NeoPixel {
 
         };
 
-        Adafruit_MCP23X17 *_mpx;
+        Adafruit_MCP23X17 *_mcp;
 
         uint8_t _brightness;
 
@@ -65,14 +65,13 @@ class NeoPixel {
 
     public:
 
-        void begin(Adafruit_MCP23X17 &mpx);
+        void begin(Adafruit_MCP23X17 &mcp);
         void update();
 
         void     setBrightness(const uint8_t b);
         uint32_t rgb(const uint8_t red, const uint8_t green, const uint8_t blue) const;
         uint32_t hsv(uint16_t hue, const uint8_t sat = 0xff, const uint8_t val = 0xff) const;
 
-        
         void clear() const;
         void reset();
         

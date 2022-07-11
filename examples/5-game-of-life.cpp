@@ -56,7 +56,7 @@ void setup() {
 
     espboy.begin();
 
-    framebuffer.setColorDepth(1);
+    framebuffer.setColorDepth(lgfx::palette_1bit);
     framebuffer.createSprite(TFT_WIDTH, TFT_HEIGHT);
     framebuffer.createPalette();
     framebuffer.setPaletteColor(1, 0x00, 0xff, 0x80);
