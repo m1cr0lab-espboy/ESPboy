@@ -28,9 +28,9 @@ void update() {
     for (uint8_t y = 1; y <= TFT_HEIGHT; ++y) {
         for (uint8_t x = 1; x <= TFT_WIDTH; ++x) {
             
-            uint8_t n = pg[x-1][y-1] + pg[x][y-1] + pg[x+1][y-1] +
-                        pg[x-1][ y ]              + pg[x+1][ y ] +
-                        pg[x-1][y+1] + pg[x][y+1] + pg[x+1][y+1];
+            uint8_t const n = pg[x-1][y-1] + pg[x][y-1] + pg[x+1][y-1] +
+                              pg[x-1][ y ]              + pg[x+1][ y ] +
+                              pg[x-1][y+1] + pg[x][y+1] + pg[x+1][y+1];
 
             ng[x][y] = pg[x][y] ? n == 2 || n == 3 : n == 3;
         }

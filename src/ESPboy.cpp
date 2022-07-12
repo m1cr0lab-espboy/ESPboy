@@ -11,7 +11,7 @@
 
 ESPboy espboy;
 
-void ESPboy::begin(const bool show_espboy_logo, const uint16_t wait_ms) {
+void ESPboy::begin(bool const show_espboy_logo, uint16_t const wait_ms) {
 
     if (_initialized) return;
 
@@ -29,7 +29,7 @@ void ESPboy::begin(const bool show_espboy_logo, const uint16_t wait_ms) {
         //     ESPBOY_LOGO
         // );
 
-        uint8_t h = (TFT_HEIGHT - ESPBOY_LOGO_HEIGHT - 3 - 1 - 3 - 8) >> 1;
+        uint8_t const h = (TFT_HEIGHT - ESPBOY_LOGO_HEIGHT - 3 - 1 - 3 - 8) >> 1;
 
         tft.drawBitmap(
             (TFT_WIDTH  - ESPBOY_LOGO_WIDTH) >> 1,
@@ -52,7 +52,7 @@ void ESPboy::begin(const bool show_espboy_logo, const uint16_t wait_ms) {
     
 }
 
-void ESPboy::begin(const uint8_t logo_width, const uint8_t logo_height, const uint16_t *logo_data, const uint16_t wait_ms) {
+void ESPboy::begin(uint8_t const logo_width, uint8_t const logo_height, uint16_t const * const logo_data, uint16_t const wait_ms) {
 
     if (_initialized) return;
 
@@ -78,17 +78,11 @@ void ESPboy::_init() {
     
     _frame_count = _fps = 0;
 
-    _initMCP4725();
+    dac.begin(0x60);
     _initMCP23017();
-    _initTFT();
+    tft.init();
 
     _buttons = ~(mcp.readGPIOAB() & 0xff);
-
-}
-
-void ESPboy::_initMCP4725() {
-
-    dac.begin(0x60);
 
 }
 
@@ -108,12 +102,6 @@ void ESPboy::_initMCP23017() {
     
 }
 
-void ESPboy::_initTFT() {
-
-    tft.init();
-
-}
-
 void ESPboy::update() {
     
     if (_fading.active) _fade();
@@ -128,13 +116,13 @@ void ESPboy::update() {
 
 uint8_t ESPboy::buttons() const { return _buttons; }
 
-// To please Roman
+// To please Roman 😉
 uint8_t ESPboy::getKeys() const { return _buttons; }
 
 void ESPboy::_updateFPS() {
 
     static uint32_t last_sec = 0;
-    const  uint32_t sec      = millis() / 1000;
+    uint32_t const sec = millis() / 1000;
 
     if (sec != last_sec) {
         _fps = _frame_count;
@@ -146,20 +134,7 @@ void ESPboy::_updateFPS() {
 
 }
 
-uint32_t ESPboy::fps() const {
-
-    return _fps;
-
-}
-
-void ESPboy::_fadeInOut(const uint16_t wait_ms) {
-
-    fadeIn();  while (_fading.active) _fade(); delay(wait_ms);
-    fadeOut(); while (_fading.active) _fade();
-    tft.fillScreen(0);
-    fadeIn();
-
-}
+uint32_t ESPboy::fps() const { return _fps; }
 
 bool ESPboy::fading() const { return _fading.active; }
 
@@ -200,9 +175,18 @@ void ESPboy::dim(uint16_t const level) {
 
 }
 
+void ESPboy::_fadeInOut(uint16_t const wait_ms) {
+
+    fadeIn();  while (_fading.active) _fade(); delay(wait_ms);
+    fadeOut(); while (_fading.active) _fade();
+    tft.fillScreen(0);
+    fadeIn();
+
+}
+
 void ESPboy::_fade() {
 
-    const uint32_t now = micros();
+    uint32_t const now = micros();
 
     if (now - _fading.last_us > 9999) {
 

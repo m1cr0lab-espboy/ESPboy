@@ -6,17 +6,17 @@
 
 #include <ESPboy.h>
 
-static const uint8_t SIZE = 5;
-static const uint8_t COLS = (TFT_WIDTH  - 4) / SIZE;
-static const uint8_t ROWS = (TFT_HEIGHT - 4) / SIZE;
-static const uint8_t OX   = (TFT_WIDTH  - COLS * SIZE) >> 1;
-static const uint8_t OY   = (TFT_HEIGHT - ROWS * SIZE) >> 1;
+static uint8_t constexpr SIZE = 5;
+static uint8_t constexpr COLS = (TFT_WIDTH  - 4) / SIZE;
+static uint8_t constexpr ROWS = (TFT_HEIGHT - 4) / SIZE;
+static uint8_t constexpr OX   = (TFT_WIDTH  - COLS * SIZE) >> 1;
+static uint8_t constexpr OY   = (TFT_HEIGHT - ROWS * SIZE) >> 1;
 
 struct Point {
 
     uint8_t x, y;
 
-    void draw(const uint16_t color) const {
+    void draw(uint16_t const color) const {
 
         espboy.tft.fillRect(OX + x * SIZE, OY + y * SIZE, SIZE - 1, SIZE - 1, color);
 
@@ -32,9 +32,9 @@ struct Apple : Point {
 
 struct Snake {
 
-    static const uint8_t  START_LENGTH = 3;
-    static const uint16_t MAX_LENGTH   = COLS * ROWS;
-    static const uint16_t COLOR        = 0x07ea;
+    static uint8_t  constexpr START_LENGTH = 3;
+    static uint16_t constexpr MAX_LENGTH   = COLS * ROWS;
+    static uint16_t constexpr COLOR        = 0x07ea;
 
     enum class Dir : uint8_t { UP, RIGHT, DOWN, LEFT };
 
@@ -53,7 +53,7 @@ struct Snake {
         dir     = user_dir = Dir::UP;
 
         for (uint8_t i = 0; i < length; ++i) {
-            Point *p = &tail[i];
+            Point * const p = &tail[i];
             p->x = COLS >> 1;
             p->y = ROWS - (START_LENGTH + 2) + length - i;
             p->draw(COLOR);
@@ -63,15 +63,15 @@ struct Snake {
 
     bool eatApple() {
 
-        Point *h = &tail[head];
+        Point * const h = &tail[head];
         return h->x == apple.x && h->y == apple.y;
 
     }
 
-    bool overlap(const Point * const p) {
+    bool overlap(Point const * const p) {
 
         for (uint8_t i = p == &apple ? 0 : 3; i < length; ++i) {
-            Point *t = &tail[(head - i + MAX_LENGTH) % MAX_LENGTH];
+            Point * const t = &tail[(head - i + MAX_LENGTH) % MAX_LENGTH];
             if (t->x == p->x && t->y == p->y) return true;
         }
 
@@ -88,8 +88,8 @@ struct Snake {
 
     void update() {
 
-        int8_t   dx, dy;
-        uint16_t h = head;
+        int8_t dx, dy;
+        uint16_t const h = head;
 
         if (
 
@@ -107,8 +107,8 @@ struct Snake {
             default:         dx = -1; dy =  0;
         }
 
-        Point *p = &tail[head];
-        Point *n = &tail[++head %= MAX_LENGTH];
+        Point * const p = &tail[head];
+        Point * const n = &tail[++head %= MAX_LENGTH];
         n->x = p->x + dx;
         n->y = p->y + dy;
 
@@ -127,8 +127,8 @@ struct Snake {
 
     void draw() {
         
-        Point *h = &tail[head];
-        Point *t = &tail[(head - length + MAX_LENGTH) % MAX_LENGTH];
+        Point * const h = &tail[head];
+        Point * const t = &tail[(head - length + MAX_LENGTH) % MAX_LENGTH];
         
         t->draw(0);
         h->draw(COLOR);
@@ -148,7 +148,7 @@ void spawnApple() {
 
 }
 
-void displayScore(const uint16_t color) {
+void displayScore(uint16_t const color) {
 
     espboy.tft.setTextColor(color, 0);
     espboy.tft.drawNumber(snake.score(), OX + COLS * SIZE - 2, OY + 2);
@@ -208,9 +208,9 @@ void loop() {
     else if (espboy.button.pressed(Button::DOWN))  snake.down();
 
     static uint32_t last = millis();
-    static uint32_t now;
+    uint32_t const now   = millis();
 
-    if ((now = millis()) - last > 60) { update(); last = now; }
+    if (now - last > 60) { update(); last = now; }
 
 }
 

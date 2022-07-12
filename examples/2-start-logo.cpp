@@ -6,7 +6,7 @@
 
 #include <ESPboy.h>
 
-static constexpr PROGMEM uint16_t CUSTOM_LOGO[] = {
+static uint16_t const constexpr CUSTOM_LOGO[] PROGMEM = {
 
     // size: 28x34
 

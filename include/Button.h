@@ -15,7 +15,7 @@ class Button {
 
     private:
 
-        static constexpr uint8_t _DEBOUNCING_THRESHOLD = 3;
+        static uint8_t constexpr _DEBOUNCING_THRESHOLD = 3;
 
         enum class _State : uint8_t { FREE, PRESSED, HELD, RELEASED };
 
@@ -25,19 +25,19 @@ class Button {
 
     public:
 
-        static constexpr uint8_t LEFT      = 0;
-        static constexpr uint8_t UP        = 1;
-        static constexpr uint8_t DOWN      = 2;
-        static constexpr uint8_t RIGHT     = 3;
-        static constexpr uint8_t ACT       = 4;
-        static constexpr uint8_t ESC       = 5;
-        static constexpr uint8_t TOP_LEFT  = 6;
-        static constexpr uint8_t TOP_RIGHT = 7;
+        static uint8_t constexpr LEFT      = 0;
+        static uint8_t constexpr UP        = 1;
+        static uint8_t constexpr DOWN      = 2;
+        static uint8_t constexpr RIGHT     = 3;
+        static uint8_t constexpr ACT       = 4;
+        static uint8_t constexpr ESC       = 5;
+        static uint8_t constexpr TOP_LEFT  = 6;
+        static uint8_t constexpr TOP_RIGHT = 7;
 
-        void read(const uint8_t input);
-        bool pressed(const uint8_t button) const;
-        bool released(const uint8_t button) const;
-        bool held(const uint8_t button, const uint32_t delay_ms = 0) const;
+        void read(uint8_t const input);
+        bool pressed(uint8_t const button) const;
+        bool released(uint8_t const button) const;
+        bool held(uint8_t const button, uint32_t const delay_ms = 0) const;
     
 };
 

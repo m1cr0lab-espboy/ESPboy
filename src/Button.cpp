@@ -9,11 +9,11 @@
  */
 #include "Button.h"
 
-void Button::read(const uint8_t input) {
+void Button::read(uint8_t const input) {
 
     for (uint8_t i = 0; i < 8; ++i) {
 
-        const uint8_t reading = input & (1 << i);
+        uint8_t const reading = input & (1 << i);
 
         /**
          * Software debouncing algorithm (Kennet A. Kuhn)
@@ -21,10 +21,10 @@ void Button::read(const uint8_t input) {
          */
              if (!reading) { if (_integrator[i]) _integrator[i]--; }
         else if (_integrator[i] < _DEBOUNCING_THRESHOLD) _integrator[i]++;
-        const uint8_t output = !_integrator[i] ? 0 : (_integrator[i] == _DEBOUNCING_THRESHOLD ? 1 : 0);
+        uint8_t const output = !_integrator[i] ? 0 : (_integrator[i] == _DEBOUNCING_THRESHOLD ? 1 : 0);
 
-        switch (_state[i])
-        {
+        switch (_state[i]) {
+
             case _State::FREE:
                 if (output) _state[i] = _State::PRESSED;
                 break;
@@ -43,16 +43,17 @@ void Button::read(const uint8_t input) {
             case _State::RELEASED:
                 _state[i] = _State::FREE;
                 break;
+            
         }
 
     }
 
 }
 
-bool Button::pressed(const uint8_t button)  const { return _state[button & 0x7] == _State::PRESSED;  }
-bool Button::released(const uint8_t button) const { return _state[button & 0x7] == _State::RELEASED; }
+bool Button::pressed(uint8_t const button)  const { return _state[button & 0x7] == _State::PRESSED;  }
+bool Button::released(uint8_t const button) const { return _state[button & 0x7] == _State::RELEASED; }
 
-bool Button::held(const uint8_t button, const uint32_t delay_ms) const {
+bool Button::held(uint8_t const button, uint32_t const delay_ms) const {
 
     return _state[button & 0x7] == _State::HELD && (
         delay_ms

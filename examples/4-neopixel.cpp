@@ -33,9 +33,7 @@ void loop() {
 
     if (espboy.buttons()) {
 
-        static uint16_t hue   = 0;
-        static uint32_t color = 0;
-        static uint8_t  wait  = 0;
+        static uint16_t hue = 0;
 
         // You can define an RGB or HSV color as follows:
         // 
@@ -46,9 +44,10 @@ void loop() {
         // 
         //   espboy.pixel.show(color)
 
-        hue   = (hue + 20 * random(1, 10)) % 360;
-        color = espboy.pixel.hsv(hue);
-        wait  = random(1, 6) << 1;
+        hue = (hue + 20 * random(1, 10)) % 360;
+        
+        uint32_t color = espboy.pixel.hsv(hue);
+        uint8_t  wait  = random(1, 6) << 1;
 
         // But you can also apply effects to the LED:
 
@@ -59,7 +58,7 @@ void loop() {
         else {
 
             static uint32_t last = millis();
-                   uint32_t now  = millis();
+            uint32_t const now   = millis();
 
             if (now - last > 5) {
 

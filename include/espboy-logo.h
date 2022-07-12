@@ -11,10 +11,10 @@
 
 #include <Arduino.h>
 
-static constexpr PROGMEM uint8_t ESPBOY_LOGO_WIDTH  = 21;
-static constexpr PROGMEM uint8_t ESPBOY_LOGO_HEIGHT = 36;
+static uint8_t constexpr ESPBOY_LOGO_WIDTH  PROGMEM = 21;
+static uint8_t constexpr ESPBOY_LOGO_HEIGHT PROGMEM = 36;
 
-static constexpr PROGMEM uint8_t ESPBOY_LOGO[] = {
+static uint8_t const constexpr ESPBOY_LOGO[] PROGMEM = {
 
     0x70, 0x00, 0x70,
     0xf8, 0x00, 0xf8,
@@ -56,10 +56,10 @@ static constexpr PROGMEM uint8_t ESPBOY_LOGO[] = {
 };
 
 /*
-static constexpr PROGMEM uint8_t ESPBOY_LOGO_WIDTH  = 35;
-static constexpr PROGMEM uint8_t ESPBOY_LOGO_HEIGHT = 38;
+static uint8_t constexpr ESPBOY_LOGO_WIDTH  PROGMEM = 35;
+static uint8_t constexpr ESPBOY_LOGO_HEIGHT PROGMEM = 38;
 
-static constexpr PROGMEM uint16_t ESPBOY_LOGO[] = {
+static uint16_t const constexpr ESPBOY_LOGO[] PROGMEM = {
 
     // ESPboy Logo (redesigned by me 😎)
 
