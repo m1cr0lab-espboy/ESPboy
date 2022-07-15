@@ -1,6 +1,6 @@
 /**
  * ----------------------------------------------------------------------------
- * Firework: a nice example with particle projection
+ * Fireworks: a nice example with particle projection
  * ----------------------------------------------------------------------------
  */
 

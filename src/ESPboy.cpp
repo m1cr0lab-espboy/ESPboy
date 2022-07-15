@@ -80,7 +80,9 @@ void ESPboy::_init() {
 
     dac.begin(0x60);
     _initMCP23017();
+    
     tft.init();
+    tft.setBrightness(0xff);
 
     _buttons = ~(mcp.readGPIOAB() & 0xff);
 

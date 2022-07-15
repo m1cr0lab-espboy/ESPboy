@@ -1,0 +1,84 @@
+########################################
+# Syntax Coloring Map For ESPboy Library
+########################################
+
+########################################
+# Datatypes (KEYWORD1)
+########################################
+
+ESPboy          KEYWORD1
+Button          KEYWORD1
+NeoPixel        KEYWORD1
+
+########################################
+# Methods and Functions (KEYWORD2)
+########################################
+
+# ESPboy class
+begin           KEYWORD2
+update          KEYWORD2
+buttons         KEYWORD2
+getKeys         KEYWORD2
+fps             KEYWORD2
+fading          KEYWORD2
+fadeIn          KEYWORD2
+fadeOut         KEYWORD2
+dim             KEYWORD2
+
+# Button class
+read            KEYWORD2
+pressed         KEYWORD2
+released        KEYWORD2
+held            KEYWORD2
+
+# NeoPixel class
+# begin         KEYWORD2
+# update        KEYWORD2
+setBrightness   KEYWORD2
+rgb             KEYWORD2
+hsv             KEYWORD2
+clear           KEYWORD2
+reset           KEYWORD2
+flash           KEYWORD2
+breathe         KEYWORD2
+rainbow         KEYWORD2
+show            KEYWORD2
+
+########################################
+# Instances (KEYWORD2)
+########################################
+
+# ESPboy class
+espboy          KEYWORD2
+dac             KEYWORD2
+mcp             KEYWORD2
+tft             KEYWORD2
+button          KEYWORD2
+pixel           KEYWORD2
+
+########################################
+# Constants (LITERAL1)
+########################################
+
+# Global
+PAD_LEFT        LITERAL1
+PAD_UP          LITERAL1
+PAD_DOWN        LITERAL1
+PAD_RIGHT       LITERAL1
+PAD_ACT         LITERAL1
+PAD_ESC         LITERAL1
+PAD_LFT         LITERAL1
+PAD_RGT         LITERAL1
+PAD_ANY         LITERAL1
+TFT_WIDTH       LITERAL1
+TFT_HEIGHT      LITERAL1
+
+# Button class
+LEFT            LITERAL1
+UP              LITERAL1
+DOWN            LITERAL1
+RIGHT           LITERAL1
+ACT             LITERAL1
+ESC             LITERAL1
+TOP_LEFT        LITERAL1
+TOP_RIGHT       LITERAL1

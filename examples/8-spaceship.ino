@@ -58,7 +58,7 @@ struct Space {
 
     }
 
-    void draw() {
+    void draw() const {
 
         for (uint8_t z = 0; z < STAR_LEVELS; ++z) {
             uint8_t const n = STAR_COUNT[z];
@@ -107,7 +107,7 @@ struct Spaceship {
             }
         }
 
-        void draw() {
+        void draw() const {
             if (alive) {
                 framebuffer.fillRect(x, y, W, H, 0x7f5);
             }
@@ -207,7 +207,7 @@ struct Spaceship {
 
     }
 
-    void draw() {
+    void draw() const {
 
         framebuffer.pushImage(x, Y, W, H, SPRITE + frame * W * H, 0x1ff8);
 
