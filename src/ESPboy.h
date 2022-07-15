@@ -1,4 +1,4 @@
-/**
+/*
  * ----------------------------------------------------------------------------
  * ESPboy Library
  * ----------------------------------------------------------------------------
@@ -34,6 +34,12 @@ uint8_t constexpr PAD_ANY   = 0xff;
 uint8_t constexpr TFT_WIDTH  = 128;
 uint8_t constexpr TFT_HEIGHT = 128;
 
+/**
+ * @brief The main class of the library providing a driver to control the ESPboy handheld.
+ * 
+ * @details This driver controls the display, the status of the various push buttons
+ *          and the NeoPixel LED.
+ */
 class ESPboy {
 
     private:
@@ -68,32 +74,116 @@ class ESPboy {
 
     public:
 
-        Adafruit_MCP4725  dac;
+        /**
+         * @brief The MCP4725 DAC controller.
+         */
+        Adafruit_MCP4725 dac;
+
+        /**
+         * @brief The MCP23017 I/O expander controller.
+         */
         Adafruit_MCP23X17 mcp;
 
-        LGFX     tft;
-        Button   button;
+        /**
+         * @brief The display controller.
+         */
+        LGFX tft;
+
+        /**
+         * @brief The push button controller.
+         */
+        Button button;
+
+        /**
+         * @brief The NeoPixel LED controller.
+         */
         NeoPixel pixel;
 
+        /**
+         * @brief Initializes the ESPboy driver.
+         * 
+         * @param show_espboy_logo Flag specifying whether the ESPboy logo
+         *                         should be displayed or not when the program starts.
+         * 
+         * @param wait_ms The time length in milliseconds during which the logo must remain displayed.
+         */
         void begin(bool const show_espboy_logo = true, uint16_t const wait_ms = 1000);
+
+        /**
+         * @brief Initializes the ESPboy driver by displaying a custom logo when the program starts.
+         * 
+         * @param logo_width  The width of the logo image.
+         * @param logo_height The height of the logo image.
+         * @param logo_data   An array of 16-bit integers defining the logo colormap in RGB565 space.
+         * @param wait_ms     The time length in milliseconds during which the logo must remain displayed.
+         */
         void begin(uint8_t const logo_width, uint8_t const logo_height, uint16_t const * const logo_data, uint16_t const wait_ms = 1000);
+
+        /**
+         * @brief Updates the ESPboy controller state.
+         * 
+         * @details Handles button reading and the NeoPixel LED state.
+         */
         void update();
 
+        /**
+         * @brief Bulk read all push button states.
+         * 
+         * @return Current pin states of MCP23017 Port A as a uint8_t.
+         * 
+         * @details If the returned value is 0, it means that no button has been touched.
+         */
         uint8_t buttons() const;
+
+        /**
+         * @brief Bulk read all push button states.
+         * 
+         * @return Current pin states of MCP23017 Port A as a uint8_t.
+         * 
+         * @details If the returned value is 0, it means that no button has been touched.
+         */
         uint8_t getKeys() const;
 
+        /**
+         * @brief The display frequency.
+         * 
+         * @return The current number of frames per second.
+         */
         uint32_t fps() const;
 
+        /**
+         * @brief The current status of the screen brightness dimmer.
+         * 
+         * @return true if the screen brightness dimmer is active,
+         *         false otherwise.
+         */
         bool fading() const;
+
+        /**
+         * @brief Turns on the screen gradually.
+         */
         void fadeIn();
+
+        /**
+         * @brief Turns off the screen gradually.
+         */
         void fadeOut();
+
+        /**
+         * @brief Sets the brightness level of the screen.
+         * 
+         * @param level Screen brightness level ranging from 0 (turned off) to 4095 (fully enlightened).
+         */
         void dim(uint16_t const level);
 
 };
 
+/**
+ * @brief An object created to provide full control of the ESPboy handheld.
+ */
 extern ESPboy espboy;
 
-/**
+/*
  * ----------------------------------------------------------------------------
  * ESPboy Library
  * ----------------------------------------------------------------------------

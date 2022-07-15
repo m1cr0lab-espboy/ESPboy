@@ -1,4 +1,4 @@
-/**
+/*
  * ----------------------------------------------------------------------------
  * ESPboy Library
  * ----------------------------------------------------------------------------
@@ -11,6 +11,10 @@
 
 #include <Arduino.h>
 
+/**
+ * @brief This class provides a controller to check the state
+ *        of the various buttons of the ESPboy handheld.
+ */
 class Button {
 
     private:
@@ -34,14 +38,57 @@ class Button {
         static uint8_t constexpr TOP_LEFT  = 6;
         static uint8_t constexpr TOP_RIGHT = 7;
 
+        /**
+         * @brief Bulk read all push button states.
+         * 
+         * @param input Current pin states of MCP23017 Port A as a uint8_t.
+         * 
+         * @details The state of each button is filtered by a software debouncing algorithm.
+         */
         void read(uint8_t const input);
+
+        /**
+         * @brief Checks if a button has just been pressed.
+         * 
+         * @param button One of the predefined constants for each of the ESPboy buttons:
+         *               Button::LEFT, Button::RIGHT, Button::UP, Button::DOWN,
+         *               Button::ACT, Button::ESC, Button::TOP_LEFT or Button::TOP_RIGHT.
+         * 
+         * @return true if the button has just been pressed,
+         *         false otherwise.
+         */
         bool pressed(uint8_t const button) const;
+
+        /**
+         * @brief Checks if a button has just been released.
+         * 
+         * @param button One of the predefined constants for each of the ESPboy buttons:
+         *               Button::LEFT, Button::RIGHT, Button::UP, Button::DOWN,
+         *               Button::ACT, Button::ESC, Button::TOP_LEFT or Button::TOP_RIGHT.
+         * 
+         * @return true if the button has just been released,
+         *         false otherwise.
+         */
         bool released(uint8_t const button) const;
+
+        /**
+         * @brief Checks if a button is held down (possibly for a given time).
+         * 
+         * @param button One of the predefined constants for each of the ESPboy buttons:
+         *               Button::LEFT, Button::RIGHT, Button::UP, Button::DOWN,
+         *               Button::ACT, Button::ESC, Button::TOP_LEFT or Button::TOP_RIGHT.
+         * 
+         * @param delay_ms The time in milliseconds that the button must be held down,
+         *                 or 0 if you just want to know if the button is still pressed.
+         * 
+         * @return true if the button is held down, taking into account a non-zero
+         *         delay_ms if specified, false otherwise.
+         */
         bool held(uint8_t const button, uint32_t const delay_ms = 0) const;
     
 };
 
-/**
+/*
  * ----------------------------------------------------------------------------
  * ESPboy Library
  * ----------------------------------------------------------------------------

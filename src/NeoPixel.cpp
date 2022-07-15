@@ -1,4 +1,4 @@
-/**
+/*
  * ----------------------------------------------------------------------------
  * ESPboy Library
  * ----------------------------------------------------------------------------
@@ -44,11 +44,6 @@ uint32_t NeoPixel::rgb(uint8_t const red, uint8_t const green, uint8_t const blu
 
 }
 
-/**
- * @param hue [0-359]
- * @param sat [0-255]
- * @param val [0-255]
- */
 uint32_t NeoPixel::hsv(uint16_t hue, uint8_t const sat, uint8_t const val) const {
 
     if (!sat) return rgb(val, val, val);
@@ -241,7 +236,7 @@ void IRAM_ATTR NeoPixel::show(uint32_t const color) const {
 
 }
 
-/**
+/*
  * ----------------------------------------------------------------------------
  * ESPboy Library
  * ----------------------------------------------------------------------------

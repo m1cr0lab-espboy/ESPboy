@@ -1,4 +1,4 @@
-/**
+/*
  * ----------------------------------------------------------------------------
  * ESPboy Library
  * ----------------------------------------------------------------------------
@@ -12,6 +12,10 @@
 #include <Arduino.h>
 #include <Adafruit_MCP23X17.h>
 
+/**
+ * @brief This class provides a driver to control
+ *        the NeoPixel LED of the EPboy handheld.
+ */
 class NeoPixel {
 
     private:
@@ -65,25 +69,94 @@ class NeoPixel {
 
     public:
 
+        /**
+         * @brief Initializes the NeoPixel LED.
+         * 
+         * @param mcp The reference to the MCP23017 controller owned by the espboy instance.
+         */
         void begin(Adafruit_MCP23X17 &mcp);
+
+        /**
+         * @brief Updates the NeoPixel LED status.
+         */
         void update();
 
-        void     setBrightness(uint8_t const b);
+        /**
+         * @brief Sets the brightness of the NeoPixel LED.
+         * 
+         * @param b An integer between 0 and 255.
+         */
+        void setBrightness(uint8_t const b);
+
+        /**
+         * @brief Returns a RGB888 color from its red, green and blue components.
+         * 
+         * @param red The intensity of the red component, ranging from 0 to 255.
+         * @param green The intensity of the green component, ranging from 0 to 255.
+         * @param blue The intensity of the blue component, ranging from 0 to 255.
+         * 
+         * @return A 32-bit integer corresponding to the RGB888 color code.
+         */
         uint32_t rgb(uint8_t const red, uint8_t const green, uint8_t const blue) const;
+
+        /**
+         * @brief Returns a RGB888 color from its hue, saturation and value components.
+         * 
+         * @param hue The color hue, ranging from 0 to 359.
+         * @param sat The color saturation, ranging from 0 to 255.
+         * @param val The color value, ranging from 0 to 255.
+         * 
+         * @return A 32-bit integer corresponding to the RGB888 color code.
+         */
         uint32_t hsv(uint16_t hue, uint8_t const sat = 0xff, uint8_t const val = 0xff) const;
 
+        /**
+         * @brief Simply turn off the NeoPixel LED.
+         */
         void clear() const;
+
+        /**
+         * @brief Turns off the NeoPixel LED and cancels all current lighting effects.
+         */
         void reset();
         
+        /**
+         * @brief Makes the NeoPixel LED strobe.
+         * 
+         * @param color The RGB888 color of each light flash.
+         * @param duration_ms The duration in milliseconds of each light flash.
+         * @param count The number of light flashes.
+         * @param period_ms The time in milliseconds elapsed between the start of each light flash.
+         */
         void flash(uint32_t const color, uint16_t const duration_ms, uint8_t const count = 1, uint16_t const period_ms = 0);
+        
+        /**
+         * @brief Makes the NeoPixel LED dim in a sine wave pattern.
+         * 
+         * @param color The RGB888 color of the light effect.
+         * @param wait_ms The length of time each brightness level is maintained.
+         * @param count The number of sine waves.
+         */
         void breathe(uint32_t const color, uint16_t const wait_ms = 5, uint8_t const count = 1);
+        
+        /**
+         * @brief Applies a rainbow-like color pattern to the NeoPixel LED.
+         * 
+         * @param wait_ms The length of time each color hue is maintained.
+         * @param count The number of periodic patterns.
+         */
         void rainbow(uint32_t const wait_ms = 5, uint8_t const count = 1);
 
+        /**
+         * @brief Applies a color to the NeoPixel LED.
+         * 
+         * @param color The RGB888 color to apply (0 to turn off the LED).
+         */
         void IRAM_ATTR show(uint32_t const color) const;
 
 };
 
-/**
+/*
  * ----------------------------------------------------------------------------
  * ESPboy Library
  * ----------------------------------------------------------------------------
