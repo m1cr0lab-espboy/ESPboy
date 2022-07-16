@@ -105,23 +105,48 @@ class ESPboy {
          * @param show_espboy_logo Flag specifying whether the ESPboy logo
          *                         should be displayed or not when the program starts.
          * 
-         * @param wait_ms The time length in milliseconds during which the logo must remain displayed.
+         * @param wait_ms          The time length in milliseconds during which the logo
+         *                         must remain displayed.
          */
         void begin(bool const show_espboy_logo = true, uint16_t const wait_ms = 1000);
-        
+
         /**
-         * @brief Initializes the ESPboy driver by displaying a custom monochromatic logo when the program starts.
+         * @brief Initializes the ESPboy driver by displaying the application name at startup.
+         * 
+         * @param title            The application name.
+         * @param color            Title display color in 16-bit format (RGB565).
+         * @param wait_ms          The time length in milliseconds during which the logo
+         *                         must remain displayed.
+         */
+        void begin(__FlashStringHelper const * const title, uint16_t const color = 0xffff, uint16_t const wait_ms = 1000);
+
+        /**
+         * @brief Initializes the ESPboy driver, possibly displaying the application name at startup.
+         * 
+         * @param title            The application name.
+         * @param color            Title display color in 16-bit format (RGB565).
+         * 
+         * @param show_espboy_logo Flag specifying whether the ESPboy logo
+         *                         should be displayed or not when the program starts.
+         * 
+         * @param wait_ms          The time length in milliseconds during which the logo
+         *                         must remain displayed.
+         */
+        void begin(char const * const title, uint16_t const color = 0xffff, bool const show_espboy_logo = true, uint16_t const wait_ms = 1000);
+
+        /**
+         * @brief Initializes the ESPboy driver by displaying a custom monochromatic logo at startup.
          * 
          * @param logo_width  The width of the logo image.
          * @param logo_height The height of the logo image.
          * @param logo_data   An array of 8-bit integers defining the logo bitmap.
-         * @param color       A 16-bit (RGB565) logo display color.
+         * @param color       Logo display color in 16-bit format (RGB565)
          * @param wait_ms     The time length in milliseconds during which the logo must remain displayed.
          */
         void begin(uint8_t const logo_width, uint8_t const logo_height, uint8_t const * const logo_data, uint16_t const color, uint16_t const wait_ms = 1000);
 
         /**
-         * @brief Initializes the ESPboy driver by displaying a custom 16-bit color logo when the program starts.
+         * @brief Initializes the ESPboy driver by displaying a custom 16-bit color logo at startup.
          * 
          * @param logo_width  The width of the logo image.
          * @param logo_height The height of the logo image.
