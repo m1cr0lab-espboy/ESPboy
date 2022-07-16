@@ -84,7 +84,7 @@ class NeoPixel {
         /**
          * @brief Sets the brightness of the NeoPixel LED.
          * 
-         * @param b An integer between 0 and 255.
+         * @param b An integer ranging from 0 to 255.
          */
         void setBrightness(uint8_t const b);
 
