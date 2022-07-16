@@ -20,29 +20,23 @@ void ESPboy::begin(bool const show_espboy_logo, uint16_t const wait_ms) {
     dac.setVoltage(show_espboy_logo ? 0 : 4095, false);
 
     if (show_espboy_logo) {
-
-        // tft.pushImage(
-        //     (TFT_WIDTH  - ESPBOY_LOGO_WIDTH)  >> 1,
-        //     (TFT_HEIGHT - ESPBOY_LOGO_HEIGHT) >> 1,
-        //     ESPBOY_LOGO_WIDTH,
-        //     ESPBOY_LOGO_HEIGHT,
-        //     ESPBOY_LOGO
-        // );
-
-        uint8_t const h = (TFT_HEIGHT - ESPBOY_LOGO_HEIGHT - 3 - 1 - 3 - 8) >> 1;
+        uint8_t y = (TFT_HEIGHT - ESPBOY_LOGO_HEIGHT - 3 - 1 - 3 - 8 - 8 - 8 - 4 - 8) >> 1;
 
         tft.drawBitmap(
             (TFT_WIDTH  - ESPBOY_LOGO_WIDTH) >> 1,
-            h,
+            y,
             ESPBOY_LOGO,
             ESPBOY_LOGO_WIDTH,
             ESPBOY_LOGO_HEIGHT,
             TFT_YELLOW
         );
 
-        tft.drawFastHLine(42, h + ESPBOY_LOGO_HEIGHT + 3, 43, TFT_YELLOW);
+        tft.drawFastHLine(42, y += ESPBOY_LOGO_HEIGHT + 3, 43, TFT_YELLOW);
         tft.setTextColor(TFT_YELLOW);
-        tft.drawString(F("ESPboy"), 46, h + ESPBOY_LOGO_HEIGHT + 3 + 1 + 3);
+        tft.drawCenterString(F("ESPboy"), TFT_WIDTH >> 1, y += 1 + 3);
+        tft.setTextColor(TFT_DARKGREY);
+        tft.drawCenterString(F("Powered by"),     TFT_WIDTH >> 1, y += 8 + 8);
+        tft.drawCenterString(F("m1cr0lab's lib"), TFT_WIDTH >> 1, y +  8 + 4);
 
         _fadeInOut(wait_ms);
 
