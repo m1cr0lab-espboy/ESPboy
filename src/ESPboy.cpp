@@ -142,7 +142,7 @@ void ESPboy::update() {
 uint8_t ESPboy::buttons() const { return _buttons; }
 
 // To please Roman 😉
-uint8_t ESPboy::getKeys() const { return _buttons; }
+uint8_t ESPboy::getKeys() { return ~(mcp.readGPIOAB() & 0xff); }
 
 void ESPboy::_updateFPS() {
 

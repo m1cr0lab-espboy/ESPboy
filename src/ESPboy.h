@@ -153,7 +153,7 @@ class ESPboy {
          * 
          * @details If the returned value is 0, it means that no button has been touched.
          */
-        uint8_t getKeys() const;
+        uint8_t getKeys();
 
         /**
          * @brief The display frequency.
