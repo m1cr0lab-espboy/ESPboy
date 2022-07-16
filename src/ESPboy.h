@@ -108,9 +108,20 @@ class ESPboy {
          * @param wait_ms The time length in milliseconds during which the logo must remain displayed.
          */
         void begin(bool const show_espboy_logo = true, uint16_t const wait_ms = 1000);
+        
+        /**
+         * @brief Initializes the ESPboy driver by displaying a custom monochromatic logo when the program starts.
+         * 
+         * @param logo_width  The width of the logo image.
+         * @param logo_height The height of the logo image.
+         * @param logo_data   An array of 8-bit integers defining the logo bitmap.
+         * @param color       A 16-bit (RGB565) logo display color.
+         * @param wait_ms     The time length in milliseconds during which the logo must remain displayed.
+         */
+        void begin(uint8_t const logo_width, uint8_t const logo_height, uint8_t const * const logo_data, uint16_t const color, uint16_t const wait_ms = 1000);
 
         /**
-         * @brief Initializes the ESPboy driver by displaying a custom logo when the program starts.
+         * @brief Initializes the ESPboy driver by displaying a custom 16-bit color logo when the program starts.
          * 
          * @param logo_width  The width of the logo image.
          * @param logo_height The height of the logo image.

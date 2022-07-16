@@ -52,6 +52,29 @@ void ESPboy::begin(bool const show_espboy_logo, uint16_t const wait_ms) {
     
 }
 
+void ESPboy::begin(uint8_t const logo_width, uint8_t const logo_height, uint8_t const * const logo_data, uint16_t const color, uint16_t const wait_ms) {
+
+    if (_initialized) return;
+
+    _init();
+
+    dac.setVoltage(0, false);
+
+    tft.drawBitmap(
+        (TFT_WIDTH  - logo_width)  >> 1,
+        (TFT_HEIGHT - logo_height) >> 1,
+        logo_data,
+        logo_width,
+        logo_height,
+        color
+    );
+
+    _fadeInOut(wait_ms);
+
+    _initialized = true;
+
+}
+
 void ESPboy::begin(uint8_t const logo_width, uint8_t const logo_height, uint16_t const * const logo_data, uint16_t const wait_ms) {
 
     if (_initialized) return;
