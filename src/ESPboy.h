@@ -138,7 +138,7 @@ class ESPboy {
          * 
          * @param logo_width    The width of the logo image.
          * @param logo_height   The height of the logo image.
-         * @param logo_colormap An array of 8-bit integers defining the logo bitmap.
+         * @param logo_colormap An array of 16-bit integers defining the logo colormap in RGB565 space.
          * @param wait_ms       The time length in milliseconds during which the logo must remain displayed.
          */
         void begin(
