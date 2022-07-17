@@ -140,7 +140,7 @@ class ESPboy {
          * @param logo_width  The width of the logo image.
          * @param logo_height The height of the logo image.
          * @param logo_data   An array of 8-bit integers defining the logo bitmap.
-         * @param color       Logo display color in 16-bit format (RGB565)
+         * @param color       Logo display color in 16-bit format (RGB565).
          * @param wait_ms     The time length in milliseconds during which the logo must remain displayed.
          */
         void begin(uint8_t const logo_width, uint8_t const logo_height, uint8_t const * const logo_data, uint16_t const color, uint16_t const wait_ms = 1000);
@@ -177,6 +177,8 @@ class ESPboy {
          * @return Current pin states of MCP23017 Port A as a uint8_t.
          * 
          * @details If the returned value is 0, it means that no button has been touched.
+         * 
+         * @note To please Roman 😉
          */
         uint8_t getKeys();
 

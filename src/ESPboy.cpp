@@ -19,6 +19,8 @@ void ESPboy::begin(bool const show_espboy_logo, uint16_t const wait_ms) {
 
 void ESPboy::begin(__FlashStringHelper const * const title, uint16_t const color, uint16_t const wait_ms) {
 
+    if (_initialized) return;
+
     uint8_t len = strlen_P((PGM_P)title);
     char    buffer[len + 1];
     strncpy_P(buffer, (PGM_P)title, len + 1);
