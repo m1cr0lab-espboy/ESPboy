@@ -38,13 +38,14 @@
             "name": "Examples",
             "base": "examples",
              "files": [
-                "1-bootstrap.cpp",
-                "2-start-logo.cpp",
-                "3-buttons.cpp",
-                "4-neopixel.cpp",
-                "5-game-of-life.cpp",
-                "6-snake.cpp",
-                "7-spaceship.cpp"
+                "1-bootstrap.ino",
+                "2-startup-logo.ino",
+                "3-buttons.ino",
+                "4-neopixel.ino",
+                "5-game-of-life.ino",
+                "6-fireworks.ino",
+                "7-snake.ino",
+                "8-spaceship.ino"
             ]
         }
     ],
@@ -53,7 +54,6 @@
             "Readme.md",
             "LICENSE",
             "examples/*",
-            "include/*",
             "src/*",
             "library.json"
         ]
