@@ -55,7 +55,9 @@
             "LICENSE",
             "examples/*",
             "src/*",
-            "library.json"
+            "library.json",
+            "library.properties",
+            "keywords.txt"
         ]
     }
 }
