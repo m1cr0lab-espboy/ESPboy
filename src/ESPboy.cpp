@@ -11,108 +11,109 @@
 
 ESPboy espboy;
 
-void ESPboy::begin(bool const show_espboy_logo, uint16_t const wait_ms) {
-
-    begin((char const * const) nullptr, 0, show_espboy_logo, wait_ms);
-
-}
-
-void ESPboy::begin(__FlashStringHelper const * const title, uint16_t const color, uint16_t const wait_ms) {
-
-    if (_initialized) return;
+void ESPboy::begin(__FlashStringHelper const * const title, uint16 const color) {
 
     uint8_t len = strlen_P((PGM_P)title);
     char    buffer[len + 1];
     strncpy_P(buffer, (PGM_P)title, len + 1);
 
-    begin(buffer, color, true, wait_ms);
+    begin(buffer, color);
 
 }
 
-void ESPboy::begin(char const * const title, uint16_t const color, bool const show_espboy_logo, uint16_t const wait_ms) {
+void ESPboy::begin(char const * const title, uint16 const color) {
 
     if (_initialized) return;
 
-    _init();
+    _init(); if (_buttons) return;
 
-    dac.setVoltage(show_espboy_logo ? 0 : 4095, false);
+    _showESPboyLogo(title, color);
+    _fadeInOut(1000);
+    fadeIn();
+    tft.setTextColor(TFT_WHITE); // reset default color
 
-    if (show_espboy_logo) {
-
-        uint8_t const p1 = title == nullptr ? 0 : 8 + 12;
-        uint8_t const p2 = title == nullptr ? 8 : 12;
-        uint8_t y = (TFT_HEIGHT - ESPBOY_LOGO_HEIGHT - 3 - 1 - 3 - p1 - p2 - 8 - 8 - 4 - 8) >> 1;
-
-        tft.drawBitmap(
-            (TFT_WIDTH  - ESPBOY_LOGO_WIDTH) >> 1,
-            y,
-            ESPBOY_LOGO,
-            ESPBOY_LOGO_WIDTH,
-            ESPBOY_LOGO_HEIGHT,
-            TFT_YELLOW
-        );
-
-        tft.drawFastHLine(42, y += ESPBOY_LOGO_HEIGHT + 3, 43, TFT_YELLOW);
-        tft.setTextColor(TFT_YELLOW);
-        tft.drawCenterString(F("ESPboy"), TFT_WIDTH >> 1, y += 1 + 3);
-        if (title != nullptr) {
-            tft.setTextColor(color);
-            tft.drawCenterString(title, TFT_WIDTH >> 1, y += p1);
-        }
-        tft.setTextColor(TFT_DARKGREY);
-        tft.drawCenterString(F("Powered by"),     TFT_WIDTH >> 1, y += p2 + 8);
-        tft.drawCenterString(F("m1cr0lab's lib"), TFT_WIDTH >> 1, y +  8 + 4);
-
-        _fadeInOut(wait_ms);
-
-    }
-
-    _initialized = true;
-    
 }
 
-void ESPboy::begin(uint8_t const logo_width, uint8_t const logo_height, uint8_t const * const logo_data, uint16_t const color, uint16_t const wait_ms) {
+void ESPboy::begin(uint8_t const logo_width, uint8_t const logo_height, uint8_t const * const logo_bitmap, uint16_t const logo_color, uint16_t const wait_ms) {
 
     if (_initialized) return;
 
-    _init();
-
-    dac.setVoltage(0, false);
+    _init(); if (_buttons) return;
+    _showESPboyLogo();
+    _fadeInOut(1000);
 
     tft.drawBitmap(
         (TFT_WIDTH  - logo_width)  >> 1,
         (TFT_HEIGHT - logo_height) >> 1,
-        logo_data,
+        logo_bitmap,
         logo_width,
         logo_height,
-        color
+        logo_color
     );
 
     _fadeInOut(wait_ms);
-
-    _initialized = true;
+    fadeIn();
+    tft.setTextColor(TFT_WHITE); // reset default color
 
 }
 
-void ESPboy::begin(uint8_t const logo_width, uint8_t const logo_height, uint16_t const * const logo_data, uint16_t const wait_ms) {
+void ESPboy::begin(uint8_t const logo_width, uint8_t const logo_height, uint16_t const * const logo_colormap, uint16_t const wait_ms) {
 
     if (_initialized) return;
 
-    _init();
-
-    dac.setVoltage(0, false);
+    _init(); if (_buttons) return;
+    _showESPboyLogo();
+    _fadeInOut(1000);
 
     tft.pushImage(
         (TFT_WIDTH  - logo_width)  >> 1,
         (TFT_HEIGHT - logo_height) >> 1,
         logo_width,
         logo_height,
-        logo_data
+        logo_colormap
     );
 
     _fadeInOut(wait_ms);
+    fadeIn();
+    tft.setTextColor(TFT_WHITE); // reset default color
 
-    _initialized = true;
+}
+
+void ESPboy::_showESPboyLogo(char const * const title, uint16 const color) {
+
+    dac.setVoltage(0, false);
+
+    uint8_t padding = title == nullptr ? 0 : 16;
+    uint8_t y = (TFT_HEIGHT - ESPBOY_LOGO_HEIGHT - 3 - 1 - 3 - 8 - 4 - 8 - 4 - M1CR0LAB_HEIGHT - padding - 8) >> 1;
+
+    tft.drawBitmap(
+        (TFT_WIDTH  - ESPBOY_LOGO_WIDTH) >> 1,
+        y,
+        ESPBOY_LOGO,
+        ESPBOY_LOGO_WIDTH,
+        ESPBOY_LOGO_HEIGHT,
+        TFT_YELLOW
+    );
+
+    tft.drawFastHLine(42, y += ESPBOY_LOGO_HEIGHT + 3, 43, TFT_YELLOW);
+    tft.setTextColor(TFT_YELLOW);
+    tft.drawCenterString(F("ESPboy"), TFT_WIDTH >> 1, y += 1 + 3);
+    tft.setTextColor(0xc618);
+    tft.drawCenterString(F("Powered by"), TFT_WIDTH >> 1, y += 8 + 4);
+
+    tft.drawBitmap(
+        (TFT_WIDTH  - M1CR0LAB_WIDTH) >> 1,
+        y += 8 + 4,
+        M1CR0LAB,
+        M1CR0LAB_WIDTH,
+        M1CR0LAB_HEIGHT,
+        0x07f5
+    );
+
+    if (title != nullptr) {
+        tft.setTextColor(color);
+        tft.drawCenterString(title, TFT_WIDTH >> 1, y + M1CR0LAB_HEIGHT + padding);
+    }
 
 }
 
@@ -224,7 +225,7 @@ void ESPboy::_fadeInOut(uint16_t const wait_ms) {
     fadeIn();  while (_fading.active) _fade(); delay(wait_ms);
     fadeOut(); while (_fading.active) _fade();
     tft.fillScreen(0);
-    fadeIn();
+    // fadeIn();
 
 }
 

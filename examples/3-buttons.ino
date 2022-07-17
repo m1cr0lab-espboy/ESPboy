@@ -20,7 +20,7 @@ void clear() { pressed = held = released = 0; }
 
 void setup() {
 
-    espboy.begin(false);
+    espboy.begin();
     fb.createSprite(29, 31);
 
     espboy.tft.setTextColor(TFT_LIGHTGRAY);

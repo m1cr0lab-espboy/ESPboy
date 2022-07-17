@@ -98,28 +98,18 @@ static uint16_t const constexpr COLORMAP[] PROGMEM = {
 
 void setup() {
 
-    // The different ways to handle the logo display at startup:
+    // The different ways to handle the startup screen:
     // 
-    // ** DEFAULT LOGO **
-    // 
-    // espboy.begin();      // default ESPboy logo
-    // espboy.begin(false); // no logo
-    // 
-    // You can also display the name of the application with the default ESPboy logo at startup:
-    // 
-    // espboy.begin(title, title_color);
-    // 
-    // ** CUSTOM LOGO **
-    // 
-    // espboy.begin(width, height, bitmap,   color, wait); // monochromatic logo
-    // espboy.begin(width, height, colormap, wait);        // 16-bit (RGB565) color logo
+    // espboy.begin();                                     -> display the default ESPboy logo
+    // espboy.begin(width, height, bitmap,   color, wait); -> default logo followed by your custom monochromatic logo
+    // espboy.begin(width, height, colormap, wait);        -> default logo followed by your custom 16-bit (RGB565) color logo
     // 
     // For example:
     // 
     // espboy.begin(28, 34, BITMAP, 0xffff, 2000);
     // espboy.begin(35, 38, COLORMAP, 2000);
 
-    espboy.begin(28, 34, BITMAP, 0xffff, 2000);
+    espboy.begin(28, 34, BITMAP);
 
     espboy.tft.setTextDatum(middle_center);
     espboy.tft.drawString(F("ESPboy Library"), 64, 64);
