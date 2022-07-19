@@ -55,10 +55,10 @@ static uint8_t const constexpr ESPBOY_LOGO[] PROGMEM = {
 
 };
 
-static uint8_t constexpr M1CR0LAB_WIDTH  PROGMEM = 38;
-static uint8_t constexpr M1CR0LAB_HEIGHT PROGMEM = 5;
+static uint8_t constexpr TINY_M1CR0LAB_WIDTH  PROGMEM = 38;
+static uint8_t constexpr TINY_M1CR0LAB_HEIGHT PROGMEM = 5;
 
-static uint8_t const constexpr M1CR0LAB[] PROGMEM = {
+static uint8_t const constexpr TINY_M1CR0LAB_LOGO[] PROGMEM = {
 
     0xf3, 0x3b, 0x8e, 0x43, 0x38,
     0xa9, 0x42, 0x51, 0x44, 0xa4,

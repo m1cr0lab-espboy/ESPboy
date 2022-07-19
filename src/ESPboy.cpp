@@ -84,7 +84,7 @@ void ESPboy::_showESPboyLogo(char const * const title, uint16 const color) {
     dac.setVoltage(0, false);
 
     uint8_t padding = title == nullptr ? 0 : 16;
-    uint8_t y = (TFT_HEIGHT - ESPBOY_LOGO_HEIGHT - 3 - 1 - 3 - 8 - 4 - 8 - 4 - M1CR0LAB_HEIGHT - padding - 8) >> 1;
+    uint8_t y = (TFT_HEIGHT - ESPBOY_LOGO_HEIGHT - 3 - 1 - 3 - 8 - 4 - 8 - 4 - TINY_M1CR0LAB_HEIGHT - padding - 8) >> 1;
 
     tft.drawBitmap(
         (TFT_WIDTH  - ESPBOY_LOGO_WIDTH) >> 1,
@@ -102,17 +102,17 @@ void ESPboy::_showESPboyLogo(char const * const title, uint16 const color) {
     tft.drawCenterString(F("powered by"), TFT_WIDTH >> 1, y += 8 + 4);
 
     tft.drawBitmap(
-        (TFT_WIDTH  - M1CR0LAB_WIDTH) >> 1,
+        (TFT_WIDTH  - TINY_M1CR0LAB_WIDTH) >> 1,
         y += 8 + 4,
-        M1CR0LAB,
-        M1CR0LAB_WIDTH,
-        M1CR0LAB_HEIGHT,
+        TINY_M1CR0LAB_LOGO,
+        TINY_M1CR0LAB_WIDTH,
+        TINY_M1CR0LAB_HEIGHT,
         0x07f5 // hsv(160, 100, 50)
     );
 
     if (title != nullptr) {
         tft.setTextColor(color);
-        tft.drawCenterString(title, TFT_WIDTH >> 1, y + M1CR0LAB_HEIGHT + padding);
+        tft.drawCenterString(title, TFT_WIDTH >> 1, y + TINY_M1CR0LAB_HEIGHT + padding);
     }
 
 }
