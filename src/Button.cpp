@@ -16,8 +16,8 @@ void Button::read(uint8_t const input) {
         uint8_t const reading = input & (1 << i);
 
         /**
-         * Software debouncing algorithm (Kennet A. Kuhn)
-         * @see https://www.kennethkuhn.com/electronics/debounce.c
+         * @note Software debouncing algorithm (Kennet A. Kuhn)
+         * @see  https://www.kennethkuhn.com/electronics/debounce.c
          */
              if (!reading) { if (_integrator[i]) _integrator[i]--; }
         else if (_integrator[i] < _DEBOUNCING_THRESHOLD) _integrator[i]++;

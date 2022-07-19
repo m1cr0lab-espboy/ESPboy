@@ -8,6 +8,7 @@
  * ----------------------------------------------------------------------------
  */
 #include "NeoPixel.h"
+#include "Color.h"
 
 void NeoPixel::begin(Adafruit_MCP23X17 &mcp) {
 
@@ -18,7 +19,7 @@ void NeoPixel::begin(Adafruit_MCP23X17 &mcp) {
 
     _fx = _FX::NONE;
     
-    setBrightness(0x40);
+    setBrightness(0x20);
     clear();
 
 }
@@ -38,44 +39,62 @@ void NeoPixel::update() {
 
 void NeoPixel::setBrightness(uint8_t const b) { _brightness = b + 1; }
 
-uint32_t NeoPixel::rgb(uint8_t const red, uint8_t const green, uint8_t const blue) const {
-
-    return (green << 16) | (red << 8) | blue;
-
-}
-
-uint32_t NeoPixel::hsv(uint16_t hue, uint8_t const sat, uint8_t const val) const {
-
-    if (!sat) return rgb(val, val, val);
-
-    hue = (hue << 5) / 45;
-
-    uint8_t r, g, b;
-
-    uint8_t const sextant   = hue / 43;
-    uint8_t const remainder = (hue - (sextant * 43)) * 6;
-
-    uint8_t const p = (val * ~sat) >> 8;
-    uint8_t const q = (val * ~(sat *  remainder) >> 8) >> 8;
-    uint8_t const t = (val * ~(sat * ~remainder) >> 8) >> 8;
-
-    switch (sextant) {
-
-        case 0:  r = val; g =   t; b =   p; break;
-        case 1:  r =   q; g = val; b =   p; break;
-        case 2:  r =   p; g = val; b =   t; break;
-        case 3:  r =   p; g =   q; b = val; break;
-        case 4:  r =   t; g =   p; b = val; break;
-        default: r = val; g =   p; b =   q;
-
-    }
-
-    return rgb(r, g, b);
-
-}
-
 void NeoPixel::clear() const { show(0); }
 void NeoPixel::reset() { _fx = _FX::NONE; clear(); }
+
+void NeoPixel::show(uint32_t color) const {
+
+    _show(_rgb2grb(color));
+
+}
+
+void NeoPixel::flash(uint32_t const color, uint16_t const duration_ms, uint8_t const count, uint16_t const period_ms) {
+
+    _fx             = _FX::FLASH;
+    _fx_color       = color;
+    _fx_start_ms    = millis();
+    _fx_duration_ms = duration_ms;
+    _fx_period_ms   = period_ms;
+    _fx_count       = count;
+    _fx_looping     = count == 0;
+    _flashing       = true;
+
+    show(color);
+    
+}
+
+void NeoPixel::breathe(uint32_t const color, uint16_t const wait_ms, uint8_t const count) {
+
+    _fx             = _FX::BREATHE;
+    _fx_offset      = 0;
+    _fx_color       = color;
+    _fx_start_ms    = millis();
+    _fx_duration_ms = wait_ms;
+    _fx_count       = count;
+    _fx_looping     = count == 0;
+
+}
+
+void NeoPixel::rainbow(uint32_t const wait_ms, uint8_t const count) {
+
+    _fx             = _FX::RAINBOW;
+    _fx_hue         = 0;
+    _fx_start_ms    = millis();
+    _fx_duration_ms = wait_ms;
+    _fx_count       = count;
+    _fx_looping     = count == 0;
+
+    show(Color::hsv2rgb(_fx_hue));
+
+}
+
+uint32_t NeoPixel::_rgb2grb(uint32_t const rgb) const {
+
+    return (((rgb >> 8) & 0xff) << 16) |
+           ((rgb >> 16)         <<  8) |
+           (rgb & 0xff);
+
+}
 
 uint8_t NeoPixel::_sine(uint8_t const i) const {
 
@@ -102,23 +121,9 @@ void NeoPixel::_flash() {
 
     _fx_start_ms += _fx_period_ms;
     _flashing = true;
+
     show(_fx_color);
 
-}
-
-void NeoPixel::flash(uint32_t const color, uint16_t const duration_ms, uint8_t const count, uint16_t const period_ms) {
-
-    _fx             = _FX::FLASH;
-    _fx_color       = color;
-    _fx_start_ms    = millis();
-    _fx_duration_ms = duration_ms;
-    _fx_period_ms   = period_ms;
-    _fx_count       = count;
-    _fx_looping     = count == 0;
-    _flashing       = true;
-
-    show(color);
-    
 }
 
 void NeoPixel::_breathe() {
@@ -146,18 +151,6 @@ void NeoPixel::_breathe() {
 
 }
 
-void NeoPixel::breathe(uint32_t const color, uint16_t const wait_ms, uint8_t const count) {
-
-    _fx             = _FX::BREATHE;
-    _fx_offset      = 0;
-    _fx_color       = color;
-    _fx_start_ms    = millis();
-    _fx_duration_ms = wait_ms;
-    _fx_count       = count;
-    _fx_looping     = count == 0;
-
-}
-
 void NeoPixel::_rainbow() {
 
     if (!_fx_looping && !_fx_count) { reset(); return; }
@@ -168,29 +161,16 @@ void NeoPixel::_rainbow() {
 
     _fx_start_ms += _fx_duration_ms;
     
-    show(hsv(_fx_hue));
+    show(Color::hsv2rgb(_fx_hue));
     
 }
 
-void NeoPixel::rainbow(uint32_t const wait_ms, uint8_t const count) {
-
-    _fx             = _FX::RAINBOW;
-    _fx_hue         = 0;
-    _fx_start_ms    = millis();
-    _fx_duration_ms = wait_ms;
-    _fx_count       = count;
-    _fx_looping     = count == 0;
-
-    show(hsv(_fx_hue));
-
-}
-
 /**
- * Inspired by these references:
- * @see https://github.com/adafruit/Adafruit_NeoPixel/blob/master/esp8266.c
- * @see https://github.com/ESPboy-edu/ESPboy_Classes/blob/main/ESPboy_LED/ESPboyLED.cpp
+ * @note Inspired by these references:
+ * @see  https://github.com/adafruit/Adafruit_NeoPixel/blob/master/esp8266.c
+ * @see  https://github.com/ESPboy-edu/ESPboy_Classes/blob/main/ESPboy_LED/ESPboyLED.cpp
  */
-void IRAM_ATTR NeoPixel::show(uint32_t const color) const {
+void IRAM_ATTR NeoPixel::_show(uint32_t const color) const {
 
     static const uint32_t pin_mask = 1 << _LED_PIN;
     uint32_t t, c, start, mask;

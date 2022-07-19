@@ -9,6 +9,7 @@
  */
 
 #include <ESPboy.h>
+#include <Color.h>
 
 // ----------------------------------------------------------------------------
 // Global constants
@@ -42,7 +43,7 @@ struct Point {
 
 struct Apple : Point {
 
-    void draw() const { Point::draw(0xf80a); }
+    void draw() const { Point::draw(0xfd40); }
 
 };
 
@@ -117,7 +118,7 @@ bool Snake::overlap(Point const * const p) {
 void Snake::die() {
 
     is_dead = true;
-    espboy.pixel.flash(espboy.pixel.hsv(0), 50, 3, 200);
+    espboy.pixel.flash(Color::hsv2rgb(0), 50, 3, 200);
 
 }
 
@@ -226,7 +227,7 @@ void update() {
     if (snake.eatApple()) {
         snake.extend();
         spawnApple();
-        espboy.pixel.flash(espboy.pixel.hsv(341), 50);
+        espboy.pixel.flash(Color::hsv2rgb(30), 50);
     }
 
     displayScore(0x8410);

@@ -9,6 +9,7 @@
 ESPboy          KEYWORD1
 Button          KEYWORD1
 NeoPixel        KEYWORD1
+Color           KEYWORD1
 
 ########################################
 # Methods and Functions (KEYWORD2)
@@ -35,14 +36,18 @@ held            KEYWORD2
 # begin         KEYWORD2
 # update        KEYWORD2
 setBrightness   KEYWORD2
-rgb             KEYWORD2
-hsv             KEYWORD2
 clear           KEYWORD2
 reset           KEYWORD2
+show            KEYWORD2
 flash           KEYWORD2
 breathe         KEYWORD2
 rainbow         KEYWORD2
-show            KEYWORD2
+
+# Color class
+rgb             KEYWORD2
+rgb565          KEYWORD2
+hsv2rgb         KEYWORD2
+hsv2rgb565      KEYWORD2
 
 ########################################
 # Instances (KEYWORD2)

@@ -61,11 +61,16 @@ class NeoPixel {
         bool     _fx_looping;
         bool     _flashing;
 
+        uint32_t _rgb2grb(uint32_t const rgb) const;
+
         void _flash();
         void _breathe();
         void _rainbow();
 
         uint8_t _sine(uint8_t const i) const;
+
+        // color must be in GRB888 format => 0x00GGRRBB
+        void IRAM_ATTR _show(uint32_t const color) const;
 
     public:
 
@@ -89,28 +94,6 @@ class NeoPixel {
         void setBrightness(uint8_t const b);
 
         /**
-         * @brief Returns a RGB888 color from its red, green and blue components.
-         * 
-         * @param red The intensity of the red component, ranging from 0 to 255.
-         * @param green The intensity of the green component, ranging from 0 to 255.
-         * @param blue The intensity of the blue component, ranging from 0 to 255.
-         * 
-         * @return A 32-bit integer corresponding to the RGB888 color code.
-         */
-        uint32_t rgb(uint8_t const red, uint8_t const green, uint8_t const blue) const;
-
-        /**
-         * @brief Returns a RGB888 color from its hue, saturation and value components.
-         * 
-         * @param hue The color hue, ranging from 0 to 359.
-         * @param sat The color saturation, ranging from 0 to 255.
-         * @param val The color value, ranging from 0 to 255.
-         * 
-         * @return A 32-bit integer corresponding to the RGB888 color code.
-         */
-        uint32_t hsv(uint16_t hue, uint8_t const sat = 0xff, uint8_t const val = 0xff) const;
-
-        /**
          * @brief Simply turn off the NeoPixel LED.
          */
         void clear() const;
@@ -119,14 +102,21 @@ class NeoPixel {
          * @brief Turns off the NeoPixel LED and cancels all current lighting effects.
          */
         void reset();
+
+        /**
+         * @brief Applies a RGB888 color to the NeoPixel LED.
+         * 
+         * @param color The RGB888 color to apply (0 to turn off the LED).
+         */
+        void show(uint32_t const color) const;
         
         /**
-         * @brief Makes the NeoPixel LED strobe.
+         * @brief Makes the NeoPixel LED blink.
          * 
          * @param color The RGB888 color of each light flash.
          * @param duration_ms The duration in milliseconds of each light flash.
          * @param count The number of light flashes.
-         * @param period_ms The time in milliseconds elapsed between the start of each light flash.
+         * @param period_ms The time in milliseconds elapsed between each flash start.
          */
         void flash(uint32_t const color, uint16_t const duration_ms, uint8_t const count = 1, uint16_t const period_ms = 0);
         
@@ -137,7 +127,7 @@ class NeoPixel {
          * @param wait_ms The length of time each brightness level is maintained.
          * @param count The number of sine waves.
          */
-        void breathe(uint32_t const color, uint16_t const wait_ms = 5, uint8_t const count = 1);
+        void breathe(uint32_t const color, uint16_t const wait_ms = 2, uint8_t const count = 1);
         
         /**
          * @brief Applies a rainbow-like color pattern to the NeoPixel LED.
@@ -145,14 +135,7 @@ class NeoPixel {
          * @param wait_ms The length of time each color hue is maintained.
          * @param count The number of periodic patterns.
          */
-        void rainbow(uint32_t const wait_ms = 5, uint8_t const count = 1);
-
-        /**
-         * @brief Applies a color to the NeoPixel LED.
-         * 
-         * @param color The RGB888 color to apply (0 to turn off the LED).
-         */
-        void IRAM_ATTR show(uint32_t const color) const;
+        void rainbow(uint32_t const wait_ms = 10, uint8_t const count = 1);
 
 };
 

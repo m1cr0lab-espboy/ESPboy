@@ -9,50 +9,13 @@
  */
 
 #include <ESPboy.h>
+#include <Color.h>
 
 uint8_t constexpr MAX_FIREWORKS = 5;
 uint8_t constexpr MAX_SPARKLES  = 40;
 float_t constexpr GRAVITY       = .25f;
 
 LGFX_Sprite fb(&espboy.tft);
-
-uint16_t rgb565(uint8_t const red, uint8_t const green, uint8_t const blue) {
-
-    return ((red   & 0xf8) << 8) |
-           ((green & 0xfc) << 3) |
-            (blue >> 3);
-
-}
-
-uint16_t hsv(uint16_t hue, uint8_t const sat = 0xff, uint8_t const val = 0xff) {
-
-    if (!sat) return rgb565(val, val, val);
-
-    hue = (hue << 5) / 45;
-
-    uint8_t r, g, b;
-
-    uint8_t const sextant   = hue / 43;
-    uint8_t const remainder = (hue - (sextant * 43)) * 6;
-
-    uint8_t const p = (val * ~sat) >> 8;
-    uint8_t const q = (val * ~(sat *  remainder) >> 8) >> 8;
-    uint8_t const t = (val * ~(sat * ~remainder) >> 8) >> 8;
-
-    switch (sextant) {
-
-        case 0:  r = val; g =   t; b =   p; break;
-        case 1:  r =   q; g = val; b =   p; break;
-        case 2:  r =   p; g = val; b =   t; break;
-        case 3:  r =   p; g =   q; b = val; break;
-        case 4:  r =   t; g =   p; b = val; break;
-        default: r = val; g =   p; b =   q;
-
-    }
-
-    return rgb565(r, g, b);
-
-}
 
 struct Sparkle {
 
@@ -99,8 +62,8 @@ struct Sparkle {
     void draw() {
 
         first
-            ? fb.fillRect(x - 1, y - 1, 3, 3, hsv(hue))
-            : fb.fillRect(x, y, 2, 2, hsv(hue, 0xff, lifespan));
+            ? fb.fillRect(x - 1, y - 1, 3, 3, Color::hsv2rgb565(hue))
+            : fb.fillRect(x,     y,     2, 2, Color::hsv2rgb565(hue, 0xff, lifespan));
 
     }
 
@@ -121,7 +84,7 @@ struct Firework {
 
             if (s->fired) s->update();
             if (s->first && s->vy > 0) {
-                espboy.pixel.flash(espboy.pixel.hsv(hue), 50);
+                espboy.pixel.flash(Color::hsv2rgb(hue), 50);
                 for (uint8_t j = 0; j < MAX_SPARKLES; ++j) {
                     sparkles[j].fire(s->x, s->y, s->hue);
                 }

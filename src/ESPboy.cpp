@@ -29,8 +29,9 @@ void ESPboy::begin(char const * const title, uint16 const color) {
 
     _showESPboyLogo(title, color);
     _fadeInOut(1000);
-    fadeIn();
+
     tft.setTextColor(TFT_WHITE); // reset default color
+    fadeIn();
 
 }
 
@@ -52,8 +53,9 @@ void ESPboy::begin(uint8_t const logo_width, uint8_t const logo_height, uint8_t 
     );
 
     _fadeInOut(wait_ms);
-    fadeIn();
+
     tft.setTextColor(TFT_WHITE); // reset default color
+    fadeIn();
 
 }
 
@@ -74,8 +76,9 @@ void ESPboy::begin(uint8_t const logo_width, uint8_t const logo_height, uint16_t
     );
 
     _fadeInOut(wait_ms);
-    fadeIn();
+
     tft.setTextColor(TFT_WHITE); // reset default color
+    fadeIn();
 
 }
 
@@ -225,7 +228,6 @@ void ESPboy::_fadeInOut(uint16_t const wait_ms) {
     fadeIn();  while (_fading.active) _fade(); delay(wait_ms);
     fadeOut(); while (_fading.active) _fade();
     tft.fillScreen(0);
-    // fadeIn();
 
 }
 

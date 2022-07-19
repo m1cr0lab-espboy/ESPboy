@@ -6,9 +6,49 @@
  * ----------------------------------------------------------------------------
  * How to use the NeoPixel RGB LED
  * ----------------------------------------------------------------------------
+ * To set the brightness of the LED:
+ *   espboy.pixel.setBrightness(value)
+ *     where value is ranging from 0 to 255 (default: 0x20 = 32)
+ * ----------------------------------------------------------------------------
+ * To light on the LED:
+ *   espboy.pixel.show(rgb888_color)
+ * ----------------------------------------------------------------------------
+ * To light off the LED:
+ *   espboy.pixel.clear(), which is equivalent to:
+ *   espboy.pixel.show(O)
+ * ----------------------------------------------------------------------------
+ * To make the LED blink:
+ *   espboy.pixel.flash(rgb888_color, duration_ms, count, period_ms)
+ *   - rgb888_color: 0xff00ff for example
+ *   - duration_ms:  the duration in milliseconds of each light flash
+ *   - count:        the number of light flashes
+ *   - period_ms:    the time in milliseconds between each flash start
+ * ----------------------------------------------------------------------------
+ * To make the LED dim in a sine wave pattern:
+ *   espboy.pixel.flash(rgb888_color, wait_ms, count)
+ *   - rgb888_color: 0xff00ff for example
+ *   - wait_ms:      the length of time each brightness level is maintained
+ *   - count:        the number of light flashes
+ * ----------------------------------------------------------------------------
+ * To apply a rainbow-like color pattern to the LED:
+ *   espboy.pixel.rainbow(wait_ms, count)
+ *   - wait_ms:      the length of time each color hue is maintained
+ *   - count:        the number of periodic patterns
+ * ----------------------------------------------------------------------------
+ * A color in RGB888 format can be obtained by one of these methods:
+ *   - in packed 32-bit format: 0x[00]rrggbb
+ *   - Color::rgb(red, green, blue)
+ *       where red, green and blue are ranging from 0 to 255 (0xff)
+ *   - Color::hsv2rgb(hue, saturation, value)
+ *       where:
+ *         - hue is ranging from 0 to 359
+ *         - saturation is ranging from 0 to 255 (default: 0xff = 255)
+ *         - value (brightness) is ranging from 0 to 255 (default: 0xff = 255)
+ * ----------------------------------------------------------------------------
  */
 
 #include <ESPboy.h>
+#include <Color.h>
 
 uint8_t brightness;
 
@@ -39,21 +79,10 @@ void loop() {
 
         static uint16_t hue = 0;
 
-        // You can define an RGB or HSV color as follows:
-        // 
-        //   uint32_t color = espboy.pixel.rgb(uint8_t red, uint8_t green, uint8_t blue)
-        //   uint32_t color = espboy.pixel.hsv(uint16_t hue, uint8_t sat = 0xff, uint8_t val = 0xff)
-        // 
-        // Then to set the color on the LED:
-        // 
-        //   espboy.pixel.show(color)
-
         hue = (hue + 20 * random(1, 10)) % 360;
         
-        uint32_t color = espboy.pixel.hsv(hue);
+        uint32_t color = Color::hsv2rgb(hue);
         uint8_t  wait  = random(1, 6) << 1;
-
-        // But you can also apply effects to the LED:
 
              if (espboy.button.pressed(Button::LEFT))  espboy.pixel.flash(color, 100, 0, 1000);
         else if (espboy.button.pressed(Button::RIGHT)) espboy.pixel.flash(color,  50, 0,  250);
@@ -65,8 +94,6 @@ void loop() {
             uint32_t const now   = millis();
 
             if (now - last > 5) {
-
-                // Finally, you can adjust the brightness of the LED:
 
                      if (espboy.button.held(Button::ACT) && (brightness < 0xff)) espboy.pixel.setBrightness(brightness++);
                 else if (espboy.button.held(Button::ESC) && (brightness > 0x00)) espboy.pixel.setBrightness(brightness--);
