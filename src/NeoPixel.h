@@ -11,6 +11,7 @@
 
 #include <Arduino.h>
 #include <Adafruit_MCP23X17.h>
+#include "Color.h"
 
 /**
  * @brief This class provides a driver to control

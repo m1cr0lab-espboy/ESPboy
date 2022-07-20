@@ -9,7 +9,6 @@
  */
 
 #include <ESPboy.h>
-#include <Color.h>
 
 uint8_t constexpr MAX_FIREWORKS = 5;
 uint8_t constexpr MAX_SPARKLES  = 40;

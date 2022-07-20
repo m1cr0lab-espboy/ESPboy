@@ -8,7 +8,6 @@
  * ----------------------------------------------------------------------------
  */
 #include "NeoPixel.h"
-#include "Color.h"
 
 void NeoPixel::begin(Adafruit_MCP23X17 &mcp) {
 

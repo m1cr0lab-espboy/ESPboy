@@ -48,7 +48,6 @@
  */
 
 #include <ESPboy.h>
-#include <Color.h>
 
 uint8_t brightness;
 
