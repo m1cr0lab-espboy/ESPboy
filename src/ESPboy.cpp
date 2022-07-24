@@ -101,7 +101,7 @@ void ESPboy::_showESPboyLogo(char const * const title, uint16 const color) {
     tft.drawFastHLine(42, y += ESPBOY_LOGO_HEIGHT + 3, 43, TFT_YELLOW);
     tft.setTextColor(TFT_YELLOW);
     tft.drawCenterString(F("ESPboy"), TFT_WIDTH >> 1, y += 1 + 3);
-    tft.setTextColor(0xb596); // hsv(176, 176, 176)
+    tft.setTextColor(0xb596); // hsl(0, 0, 70)
     tft.drawCenterString(F("powered by"), TFT_WIDTH >> 1, y += 8 + 4);
 
     tft.drawBitmap(
@@ -110,7 +110,7 @@ void ESPboy::_showESPboyLogo(char const * const title, uint16 const color) {
         TINY_M1CR0LAB_LOGO,
         TINY_M1CR0LAB_WIDTH,
         TINY_M1CR0LAB_HEIGHT,
-        0x07f5 // hsv(160, 100, 50)
+        0x07f5 // hsl(160, 100, 50)
     );
 
     if (title != nullptr) {
