@@ -45,7 +45,8 @@
                 "5-game-of-life.ino",
                 "6-fireworks.ino",
                 "7-snake.ino",
-                "8-spaceship.ino"
+                "8-spaceship.ino",
+                "9-2048.ino"
             ]
         }
     ],
