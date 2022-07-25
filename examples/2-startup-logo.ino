@@ -1,11 +1,17 @@
 /*
- * ----------------------------------------------------------------------------
+ * ----------------------------------------------------------------------------------------------------------------------
  * Startup logo
- * ----------------------------------------------------------------------------
+ * ----------------------------------------------------------------------------------------------------------------------
  * Copyright (c) 2021 Stéphane Calderoni (https://github.com/m1cr0lab)
- * ----------------------------------------------------------------------------
- * How to customize the startup logo
- * ----------------------------------------------------------------------------
+ * ----------------------------------------------------------------------------------------------------------------------
+ * How to customize the startup screen
+ * ----------------------------------------------------------------------------------------------------------------------
+ * The different ways to handle the startup screen:
+ * 
+ * espboy.begin();                                     -> display the default ESPboy logo
+ * espboy.begin(width, height, bitmap,   color, wait); -> default logo followed by your custom monochromatic logo
+ * espboy.begin(width, height, colormap, wait);        -> default logo followed by your custom 16-bit (RGB565) color logo
+ * ----------------------------------------------------------------------------------------------------------------------
  */
 
 #include <ESPboy.h>
@@ -98,14 +104,7 @@ static uint16_t const constexpr COLORMAP[] PROGMEM = {
 
 void setup() {
 
-    // The different ways to handle the startup screen:
-    // 
-    // espboy.begin();                                     -> display the default ESPboy logo
-    // espboy.begin(width, height, bitmap,   color, wait); -> default logo followed by your custom monochromatic logo
-    // espboy.begin(width, height, colormap, wait);        -> default logo followed by your custom 16-bit (RGB565) color logo
-    // 
-    // For example:
-    // 
+    // Try one of these logos:
     // espboy.begin(28, 34, BITMAP, 0xffff, 2000);
     // espboy.begin(35, 38, COLORMAP, 2000);
 
@@ -113,7 +112,7 @@ void setup() {
 
     espboy.tft.setTextDatum(middle_center);
     espboy.tft.drawString(F("ESPboy Library"), 64, 64);
-    
+
 }
 
 void loop() {

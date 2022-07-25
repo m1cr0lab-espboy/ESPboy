@@ -6,6 +6,17 @@
  * ----------------------------------------------------------------------------
  * How to deal with buttons
  * ----------------------------------------------------------------------------
+ * The predefined buttons are as follows:
+ * 
+ *   Button::LEFT
+ *   Button::UP
+ *   Button::DOWN
+ *   Button::RIGHT
+ *   Button::ACT
+ *   Button::ESC
+ *   Button::TOP_LEFT
+ *   Button::TOP_RIGHT
+ * ----------------------------------------------------------------------------
  */
 
 #include <ESPboy.h>
@@ -40,21 +51,10 @@ void setup() {
 void loop() {
 
     espboy.update();
-    
+
     fb.fillSprite(0);
 
-    // The predefined buttons are as follows:
-    // 
-    //   Button::TOP_LEFT
-    //   Button::TOP_RIGHT
-    //   Button::LEFT
-    //   Button::RIGHT
-    //   Button::UP
-    //   Button::DOWN
-    //   Button::ACT
-    //   Button::ESC
-    // 
-    // To find out if any of these buttons have been pressed, you can also use:
+    // To find out if any button has been pressed:
     // 
     //   if (espboy.buttons()) { ... }
 

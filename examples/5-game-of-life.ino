@@ -4,7 +4,7 @@
  * ----------------------------------------------------------------------------
  * Copyright (c) 2021 Stéphane Calderoni (https://github.com/m1cr0lab)
  * ----------------------------------------------------------------------------
- * A cellular automaton devised by John Horton Conway (1970)
+ * A cellular automaton designed by John Horton Conway (1970)
  * ----------------------------------------------------------------------------
  */
 
@@ -67,7 +67,7 @@ void setup() {
 
     reset();
     draw();
-    
+
 }
 
 void loop() {

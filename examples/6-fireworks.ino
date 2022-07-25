@@ -118,13 +118,13 @@ void loop() {
 
     espboy.update();
 
-    if (!random(30)) {
+    if (random(30) == 0) {
 
         fireworks[firework_index++].fire();
         if (firework_index == MAX_FIREWORKS) firework_index = 0;
 
     }
-    
+
     fb.clear();
 
     for (uint8_t i = 0; i < MAX_FIREWORKS; ++i) {

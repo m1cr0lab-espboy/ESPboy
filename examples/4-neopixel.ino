@@ -79,7 +79,7 @@ void loop() {
         static uint16_t hue = 0;
 
         hue = (hue + 20 * random(1, 10)) % 360;
-        
+
         uint32_t color = Color::hsv2rgb(hue);
         uint8_t  wait  = random(1, 6) << 1;
 

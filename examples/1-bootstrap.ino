@@ -4,7 +4,7 @@
  * ----------------------------------------------------------------------------
  * Copyright (c) 2021 Stéphane Calderoni (https://github.com/m1cr0lab)
  * ----------------------------------------------------------------------------
- * The bare minimum to start coding with this library
+ * The bare minimum to start coding with ESPboy library
  * ----------------------------------------------------------------------------
  */
 
@@ -13,13 +13,13 @@
 void setup() {
 
     espboy.begin();
-    
+
 }
 
 void loop() {
 
     espboy.update();
-    
+
 }
 
 /*

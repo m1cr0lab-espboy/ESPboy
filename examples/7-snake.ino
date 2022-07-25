@@ -4,7 +4,7 @@
  * ----------------------------------------------------------------------------
  * Copyright (c) 2021 Stéphane Calderoni (https://github.com/m1cr0lab)
  * ----------------------------------------------------------------------------
- * A sample implementation of the famous game
+ * A simple remake of the famous game
  * ----------------------------------------------------------------------------
  */
 
@@ -171,7 +171,7 @@ void Snake::draw() {
 
     Point * const h = &tail[head];
     Point * const t = &tail[(head - length + MAX_LENGTH) % MAX_LENGTH];
-    
+
     t->draw(0);
     h->draw(COLOR);
 
@@ -245,6 +245,7 @@ void setup() {
     espboy.tft.setTextDatum(top_right);
     espboy.tft.drawRect(OX - 2, OY - 2, COLS * SIZE + 4, ROWS * SIZE + 4, 0x8410);
     reset();
+
 }
 
 void loop() {

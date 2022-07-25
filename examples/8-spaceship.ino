@@ -139,7 +139,7 @@ struct Spaceship {
 
     void left()  { vx = -VX; }
     void right() { vx =  VX; }
-    
+
     void flip(int8_t const dir) {
         flip_dir = dir;
         flipping = true;
@@ -165,15 +165,10 @@ struct Spaceship {
         }
 
         if (x < 0) {
-
-            x = 0;
-            vx = 0;
-
+            vx = x = 0;
         } else if (x + W > TFT_WIDTH) {
-
             x = TFT_WIDTH - W;
             vx = 0;
-
         }
 
         if (flipping) {
@@ -228,7 +223,7 @@ void setup() {
 
     espboy.begin();
     framebuffer.createSprite(TFT_WIDTH, TFT_HEIGHT);
-    
+
 }
 
 void loop() {
