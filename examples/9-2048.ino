@@ -135,21 +135,11 @@ enum class State : uint8_t {
     wait,
     game_over
 
-};
-
-State state = State::start;
+} state;
 
 // ----------------------------------------------------------------------------
 // Global functions
 // ----------------------------------------------------------------------------
-
-void reset() {
-
-    memset(board, 0, 16);
-    free_tiles = 16;
-    score = higher = moves = 0;
-
-}
 
 void addNewTile() {
 
@@ -268,9 +258,13 @@ void move(uint8_t const dir) {
 
 void start() {
 
-    reset();
+    memset(board, 0, 16);
+    free_tiles = 16;
+    score = higher = moves = 0;
+
     addNewTile();
     addNewTile();
+
     state = State::play;
 
 }
@@ -369,6 +363,7 @@ void setup() {
 
     espboy.begin();
     fb.createSprite(TFT_WIDTH, TFT_HEIGHT);
+    state = State::start;
 
 }
 
