@@ -14,7 +14,25 @@ I noticed that most of the developments around the ESPboy have embraced Bodmer's
 
 ## Getting started
 
-[Please read the user guide][doc].
+The bare minimum to start coding with ESPboy library:
+
+```cpp
+#include <ESPboy.h>
+
+void setup() {
+
+    espboy.begin();
+
+}
+
+void loop() {
+
+    espboy.update();
+
+}
+```
+
+Please [read the user guide][doc] for more details.
 
 
 [espboy]:     https://www.espboy.com/
