@@ -1,11 +1,12 @@
 {
     "name": "ESPboy",
     "version": "1.1.0",
-    "description": "ESPboy Handheld Driver",
+    "description": "This library provides a driver for the ESPboy (ESP8266 D1 mini) multi gadget handheld designed by Roman Sokolov. Experiment with retro game programming, IoT, and STEAM education while having fun. See more on https://www.espboy.com/.",
     "keywords": "espboy, esp8266, retrogaming, handheld, iot, stem-education",
     "license": "GPL-3.0",
     "frameworks": "arduino",
     "platforms": "espressif8266",
+    "headers": "ESPboy.h",
     "authors": {
         "name": "m1cr0lab",
         "url": "https://github.com/m1cr0lab",
