@@ -1,21 +1,39 @@
-/*
+/**
  * ----------------------------------------------------------------------------
- * ESPboy handheld buttons
- * ----------------------------------------------------------------------------
- * Copyright (c) 2021 Stéphane Calderoni (https://github.com/m1cr0lab)
- * ----------------------------------------------------------------------------
- * How to deal with buttons
- * ----------------------------------------------------------------------------
- * The predefined buttons are as follows:
+ * @file   3-buttons.ino
+ * @author Stéphane Calderoni (https://github.com/m1cr0lab)
+ * @brief  The different ways to handle push buttons.
  * 
- *   Button::LEFT
- *   Button::UP
- *   Button::DOWN
- *   Button::RIGHT
- *   Button::ACT
- *   Button::ESC
- *   Button::TOP_LEFT
- *   Button::TOP_RIGHT
+ * @note   Each button is identified by a unique reference constant:
+ * 
+ *           Button::LEFT
+ *           Button::UP
+ *           Button::DOWN
+ *           Button::RIGHT
+ *           Button::ACT
+ *           Button::ESC
+ *           Button::TOP_LEFT
+ *           Button::TOP_RIGHT
+ * 
+ *         To find out if any button has been pressed:
+ * 
+ *           if (espboy.buttons()) { ... }
+ * 
+ *         To find out if a button has just been pressed:
+ * 
+ *           if (espboy.button.pressed(Button::ACT)) { ... }
+ * 
+ *         To find out if a button is held down (possibly for a given time).
+ * 
+ *           if (espboy.button.held(Button::ACT), delay) { ... }
+ * 
+ *             where delay is the length of time in milliseconds that the
+ *             button must be held down, or 0 (default) if you just want to
+ *             know if the button is still pressed.
+ * 
+ *         To find out if a button has just been released:
+ * 
+ *           if (espboy.button.released(Button::ACT)) { ... }
  * ----------------------------------------------------------------------------
  */
 
@@ -54,10 +72,6 @@ void loop() {
 
     fb.fillSprite(0);
 
-    // To find out if any button has been pressed:
-    // 
-    //   if (espboy.buttons()) { ... }
-
     if (espboy.button.pressed(Button::ACT))    pressed++;
     if (espboy.button.held(Button::ACT))       held++;
     if (espboy.button.released(Button::ACT)) { released++; held = 0; }
@@ -76,7 +90,7 @@ void loop() {
  * ----------------------------------------------------------------------------
  * ESPboy Library
  * ----------------------------------------------------------------------------
- * Copyright (c) 2021 Stéphane Calderoni (https://github.com/m1cr0lab)
+ * Copyright (c) 2021-2022 Stéphane Calderoni (https://github.com/m1cr0lab)
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

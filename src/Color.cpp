@@ -1,19 +1,18 @@
-/*
+/**
  * ----------------------------------------------------------------------------
- * ESPboy Library
- * ----------------------------------------------------------------------------
- * Copyright (c) 2021 Stéphane Calderoni (https://github.com/m1cr0lab)
- * ----------------------------------------------------------------------------
- * Color toolbox
+ * @file   Color.cpp
+ * @author Stéphane Calderoni (https://github.com/m1cr0lab)
+ * @brief  Toolbox for simplified color handling
  * ----------------------------------------------------------------------------
  */
+
 #include "Color.h"
 
 void Color::_hsv2rgb(uint16_t hue, uint8_t const sat, uint8_t const val, uint8_t *red, uint8_t *green, uint8_t *blue) {
 
     if (!sat) { *red = *green = *blue = val; return; }
 
-    hue = (hue << 5) / 45; // convert [0, 359] to [0, 255]
+    hue = (hue << 5) / 45; // converts [0, 359] to [0, 255]
 
     uint8_t const sextant   = hue / 43;
     uint8_t const remainder = (hue - (sextant * 43)) * 6;
@@ -71,7 +70,7 @@ uint16_t Color::hsv2rgb565(uint16_t hue, uint8_t const sat, uint8_t const val) {
  * ----------------------------------------------------------------------------
  * ESPboy Library
  * ----------------------------------------------------------------------------
- * Copyright (c) 2021 Stéphane Calderoni (https://github.com/m1cr0lab)
+ * Copyright (c) 2021-2022 Stéphane Calderoni (https://github.com/m1cr0lab)
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

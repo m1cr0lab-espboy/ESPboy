@@ -1,12 +1,11 @@
-/*
+/**
  * ----------------------------------------------------------------------------
- * ESPboy Library
- * ----------------------------------------------------------------------------
- * Copyright (c) 2021 Stéphane Calderoni (https://github.com/m1cr0lab)
- * ----------------------------------------------------------------------------
- * NeoPixel Driver
+ * @file   NeoPixel.h
+ * @author Stéphane Calderoni (https://github.com/m1cr0lab)
+ * @brief  NeoPixel controller
  * ----------------------------------------------------------------------------
  */
+
 #pragma once
 
 #include <Arduino.h>
@@ -52,12 +51,11 @@ class NeoPixel {
         uint8_t _brightness;
 
         _FX      _fx;
-        uint16_t _fx_offset;
-        uint16_t _fx_hue;
         uint32_t _fx_color;
         uint32_t _fx_start_ms;
-        uint32_t _fx_duration_ms;
-        uint32_t _fx_period_ms;
+        uint16_t _fx_duration_ms;
+        uint16_t _fx_period_ms;
+        uint16_t _fx_offset;
         uint8_t  _fx_count;
         bool     _fx_looping;
         bool     _flashing;
@@ -78,7 +76,7 @@ class NeoPixel {
         /**
          * @brief Initializes the NeoPixel LED.
          * 
-         * @param mcp The reference to the MCP23017 controller owned by the espboy instance.
+         * @param mcp Reference to the MCP23017 controller owned by the espboy instance.
          */
         void begin(Adafruit_MCP23X17 &mcp);
 
@@ -90,7 +88,7 @@ class NeoPixel {
         /**
          * @brief Sets the brightness of the NeoPixel LED.
          * 
-         * @param b An integer ranging from 0 to 255.
+         * @param b Brightness ranging from 0 to 255.
          */
         void setBrightness(uint8_t const b);
 
@@ -107,36 +105,36 @@ class NeoPixel {
         /**
          * @brief Applies a RGB888 color to the NeoPixel LED.
          * 
-         * @param color The RGB888 color to apply (0 to turn off the LED).
+         * @param color RGB888 color to apply (0 to turn off the LED).
          */
         void show(uint32_t const color) const;
         
         /**
          * @brief Makes the NeoPixel LED blink.
          * 
-         * @param color The RGB888 color of each light flash.
-         * @param duration_ms The duration in milliseconds of each light flash.
-         * @param count The number of light flashes.
-         * @param period_ms The time in milliseconds elapsed between each flash start.
+         * @param color RGB888 color of each light flash.
+         * @param duration_ms Duration in milliseconds of each light flash.
+         * @param count Number of light flashes (1 by default, 0 to hold the effect indefinitely).
+         * @param period_ms Length of time in milliseconds elapsed between each flash start.
          */
         void flash(uint32_t const color, uint16_t const duration_ms, uint8_t const count = 1, uint16_t const period_ms = 0);
         
         /**
-         * @brief Makes the NeoPixel LED dim in a sine wave pattern.
+         * @brief Dims the NeoPixel LED with sine wave cycles.
          * 
-         * @param color The RGB888 color of the light effect.
-         * @param wait_ms The length of time each brightness level is maintained.
-         * @param count The number of sine waves.
+         * @param color RGB888 color of the light effect.
+         * @param period_ms Sine wave period in milliseconds.
+         * @param count Number of cycles (1 by default, 0 to hold the effect indefinitely).
          */
-        void breathe(uint32_t const color, uint16_t const wait_ms = 2, uint8_t const count = 1);
+        void breathe(uint32_t const color, uint16_t const period_ms = 1000, uint8_t const count = 1);
         
         /**
-         * @brief Applies a rainbow-like color pattern to the NeoPixel LED.
+         * @brief Applies a rainbow color cycle to the NeoPixel LED.
          * 
-         * @param wait_ms The length of time each color hue is maintained.
-         * @param count The number of periodic patterns.
+         * @param period_ms Period in milliseconds of a full color cycle.
+         * @param count Number of cycles (1 by default, 0 to hold the effect indefinitely).
          */
-        void rainbow(uint32_t const wait_ms = 10, uint8_t const count = 1);
+        void rainbow(uint16_t const period_ms = 1000, uint8_t const count = 1);
 
 };
 
@@ -144,7 +142,7 @@ class NeoPixel {
  * ----------------------------------------------------------------------------
  * ESPboy Library
  * ----------------------------------------------------------------------------
- * Copyright (c) 2021 Stéphane Calderoni (https://github.com/m1cr0lab)
+ * Copyright (c) 2021-2022 Stéphane Calderoni (https://github.com/m1cr0lab)
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

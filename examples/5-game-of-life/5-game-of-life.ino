@@ -1,10 +1,8 @@
-/*
+/**
  * ----------------------------------------------------------------------------
- * The Game of Life
- * ----------------------------------------------------------------------------
- * Copyright (c) 2021 Stéphane Calderoni (https://github.com/m1cr0lab)
- * ----------------------------------------------------------------------------
- * A cellular automaton designed by John Horton Conway (1970)
+ * @file   5-game-of-life.ino
+ * @author Stéphane Calderoni (https://github.com/m1cr0lab)
+ * @brief  A cellular automaton designed by John Horton Conway (1970).
  * ----------------------------------------------------------------------------
  */
 
@@ -16,6 +14,8 @@ uint8_t ng[TFT_WIDTH+2][TFT_HEIGHT+2];
 uint8_t pg[TFT_WIDTH+2][TFT_HEIGHT+2];
 
 void reset() {
+
+    espboy.pixel.breathe(Color::hsv2rgb(120), 250, 2);
 
     for (uint8_t y = 1; y <= TFT_HEIGHT; ++y) {
         for (uint8_t x = 1; x <= TFT_WIDTH; ++x) {
@@ -85,7 +85,7 @@ void loop() {
  * ----------------------------------------------------------------------------
  * ESPboy Library
  * ----------------------------------------------------------------------------
- * Copyright (c) 2021 Stéphane Calderoni (https://github.com/m1cr0lab)
+ * Copyright (c) 2021-2022 Stéphane Calderoni (https://github.com/m1cr0lab)
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

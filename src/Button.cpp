@@ -1,12 +1,11 @@
-/*
+/**
  * ----------------------------------------------------------------------------
- * ESPboy Library
- * ----------------------------------------------------------------------------
- * Copyright (c) 2021 Stéphane Calderoni (https://github.com/m1cr0lab)
- * ----------------------------------------------------------------------------
- * ESPboy Button Controller
+ * @file   Button.cpp
+ * @author Stéphane Calderoni (https://github.com/m1cr0lab)
+ * @brief  ESPboy button controller
  * ----------------------------------------------------------------------------
  */
+
 #include "Button.h"
 
 void Button::read(uint8_t const input) {
@@ -67,7 +66,7 @@ bool Button::held(uint8_t const button, uint32_t const delay_ms) const {
  * ----------------------------------------------------------------------------
  * ESPboy Library
  * ----------------------------------------------------------------------------
- * Copyright (c) 2021 Stéphane Calderoni (https://github.com/m1cr0lab)
+ * Copyright (c) 2021-2022 Stéphane Calderoni (https://github.com/m1cr0lab)
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

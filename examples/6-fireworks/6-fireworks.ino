@@ -1,10 +1,8 @@
-/*
+/**
  * ----------------------------------------------------------------------------
- * Fireworks
- * ----------------------------------------------------------------------------
- * Copyright (c) 2021 Stéphane Calderoni (https://github.com/m1cr0lab)
- * ----------------------------------------------------------------------------
- * A nice example of a particle generator
+ * @file   6-fireworks.ino
+ * @author Stéphane Calderoni (https://github.com/m1cr0lab)
+ * @brief  A nice example to see how to implement a particle generator.
  * ----------------------------------------------------------------------------
  */
 
@@ -143,7 +141,7 @@ void loop() {
  * ----------------------------------------------------------------------------
  * ESPboy Library
  * ----------------------------------------------------------------------------
- * Copyright (c) 2021 Stéphane Calderoni (https://github.com/m1cr0lab)
+ * Copyright (c) 2021-2022 Stéphane Calderoni (https://github.com/m1cr0lab)
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

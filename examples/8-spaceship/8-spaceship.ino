@@ -1,10 +1,8 @@
-/*
+/**
  * ----------------------------------------------------------------------------
- * Spaceship
- * ----------------------------------------------------------------------------
- * Copyright (c) 2021 Stéphane Calderoni (https://github.com/m1cr0lab)
- * ----------------------------------------------------------------------------
- * A basic game template with sprite animation
+ * @file   8-spaceship.ino
+ * @author Stéphane Calderoni (https://github.com/m1cr0lab)
+ * @brief  A basic game template showing how to animate a sprite.
  * ----------------------------------------------------------------------------
  */
 
@@ -251,7 +249,7 @@ void loop() {
  * ----------------------------------------------------------------------------
  * ESPboy Library
  * ----------------------------------------------------------------------------
- * Copyright (c) 2021 Stéphane Calderoni (https://github.com/m1cr0lab)
+ * Copyright (c) 2021-2022 Stéphane Calderoni (https://github.com/m1cr0lab)
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

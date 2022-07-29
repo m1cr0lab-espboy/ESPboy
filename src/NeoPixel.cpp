@@ -1,12 +1,11 @@
-/*
+/**
  * ----------------------------------------------------------------------------
- * ESPboy Library
- * ----------------------------------------------------------------------------
- * Copyright (c) 2021 Stéphane Calderoni (https://github.com/m1cr0lab)
- * ----------------------------------------------------------------------------
- * NeoPixel Driver
+ * @file   NeoPixel.cpp
+ * @author Stéphane Calderoni (https://github.com/m1cr0lab)
+ * @brief  NeoPixel controller
  * ----------------------------------------------------------------------------
  */
+
 #include "NeoPixel.h"
 
 void NeoPixel::begin(Adafruit_MCP23X17 &mcp) {
@@ -62,36 +61,40 @@ void NeoPixel::flash(uint32_t const color, uint16_t const duration_ms, uint8_t c
     
 }
 
-void NeoPixel::breathe(uint32_t const color, uint16_t const wait_ms, uint8_t const count) {
+void NeoPixel::breathe(uint32_t const color, uint16_t const period_ms, uint8_t const count) {
+
+    if (!period_ms) return;
 
     _fx             = _FX::BREATHE;
+    _fx_period_ms   = period_ms;
     _fx_offset      = 0;
     _fx_color       = color;
     _fx_start_ms    = millis();
-    _fx_duration_ms = wait_ms;
     _fx_count       = count;
     _fx_looping     = count == 0;
 
 }
 
-void NeoPixel::rainbow(uint32_t const wait_ms, uint8_t const count) {
+void NeoPixel::rainbow(uint16_t const period_ms, uint8_t const count) {
+
+    if (!period_ms) return;
 
     _fx             = _FX::RAINBOW;
-    _fx_hue         = 0;
+    _fx_period_ms   = period_ms;
+    _fx_offset      = 0;
     _fx_start_ms    = millis();
-    _fx_duration_ms = wait_ms;
     _fx_count       = count;
     _fx_looping     = count == 0;
 
-    show(Color::hsv2rgb(_fx_hue));
+    show(Color::hsv2rgb(_fx_offset));
 
 }
 
 uint32_t NeoPixel::_rgb2grb(uint32_t const rgb) const {
 
     return (((rgb >> 8) & 0xff) << 16) |
-           ((rgb >> 16)         <<  8) |
-           (rgb & 0xff);
+            ((rgb >> 16)        <<  8) |
+             (rgb & 0xff);
 
 }
 
@@ -129,14 +132,19 @@ void NeoPixel::_breathe() {
 
     if (!_fx_looping && !_fx_count) { reset(); return; }
 
-    if (millis() - _fx_start_ms < _fx_duration_ms) return;
+    static uint8_t n = 0;
 
-    if (++_fx_offset == 256) { _fx_offset = 0; _fx_count--; }
+    uint16_t r = (millis() - _fx_start_ms) % _fx_period_ms;
+    uint8_t  l = 256 * r / _fx_period_ms;
 
-    _fx_start_ms += _fx_duration_ms;
+    switch (n) {
+        case 0: if (l > _fx_offset) n = 1; break;
+        case 1: if (l < _fx_offset) n = 2; break;
+        default: n = 0; _fx_count--; if (!_fx_count) return;
+    }
 
     uint32_t const color = _fx_color;
-    uint8_t  const lumin = _sine(_fx_offset) + 1;
+    uint8_t  const lumin = _sine(_fx_offset = l) + 1;
 
     if (lumin) {
         uint8_t c, *p = (uint8_t*)&color;
@@ -154,14 +162,13 @@ void NeoPixel::_rainbow() {
 
     if (!_fx_looping && !_fx_count) { reset(); return; }
 
-    if (millis() - _fx_start_ms < _fx_duration_ms) return;
+    uint16_t r = (millis() - _fx_start_ms) % _fx_period_ms;
+    uint16_t h = 360 * r / _fx_period_ms;
 
-    if (++_fx_hue == 360) { _fx_hue = 0; _fx_count--; }
+    if (h < _fx_offset) _fx_count--;
 
-    _fx_start_ms += _fx_duration_ms;
-    
-    show(Color::hsv2rgb(_fx_hue));
-    
+    show(Color::hsv2rgb(_fx_offset = h));
+
 }
 
 /**
@@ -219,7 +226,7 @@ void IRAM_ATTR NeoPixel::_show(uint32_t const color) const {
  * ----------------------------------------------------------------------------
  * ESPboy Library
  * ----------------------------------------------------------------------------
- * Copyright (c) 2021 Stéphane Calderoni (https://github.com/m1cr0lab)
+ * Copyright (c) 2021-2022 Stéphane Calderoni (https://github.com/m1cr0lab)
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

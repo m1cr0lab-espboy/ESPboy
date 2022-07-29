@@ -1,12 +1,11 @@
-/*
+/**
  * ----------------------------------------------------------------------------
- * ESPboy Library
- * ----------------------------------------------------------------------------
- * Copyright (c) 2021 Stéphane Calderoni (https://github.com/m1cr0lab)
- * ----------------------------------------------------------------------------
- * Color toolbox
+ * @file   Color.h
+ * @author Stéphane Calderoni (https://github.com/m1cr0lab)
+ * @brief  Toolbox for simplified color handling
  * ----------------------------------------------------------------------------
  */
+
 #pragma once
 
 #include <Arduino.h>
@@ -22,9 +21,9 @@ class Color {
         /**
          * @brief Returns a packed 32-bit RGB888 color from its red, green and blue components.
          * 
-         * @param red The intensity of the red component, ranging from 0 to 255.
-         * @param green The intensity of the green component, ranging from 0 to 255.
-         * @param blue The intensity of the blue component, ranging from 0 to 255.
+         * @param red Red level ranging from 0 to 255.
+         * @param green Green level ranging from 0 to 255.
+         * @param blue Blue level ranging from 0 to 255.
          * 
          * @return A 32-bit integer RGB888 color code.
          */
@@ -33,31 +32,31 @@ class Color {
         /**
          * @brief Returns a packed 16-bit RGB565 color from its red, green and blue components.
          * 
-         * @param red The intensity of the red component, ranging from 0 to 255.
-         * @param green The intensity of the green component, ranging from 0 to 255.
-         * @param blue The intensity of the blue component, ranging from 0 to 255.
+         * @param red Red level ranging from 0 to 255.
+         * @param green Green level ranging from 0 to 255.
+         * @param blue Blue level ranging from 0 to 255.
          * 
          * @return A 16-bit integer RGB565 color code.
          */
         static uint16_t rgb565(uint8_t const red, uint8_t const green, uint8_t const blue);
 
         /**
-         * @brief Returns a packed 32-bit RGB888 color from its hue, saturation and value components.
+         * @brief Returns a packed 32-bit RGB888 color from its hue, saturation and brightness components.
          * 
-         * @param hue The color hue, ranging from 0 to 359.
-         * @param sat The color saturation, ranging from 0 to 255.
-         * @param val The color value, ranging from 0 to 255.
+         * @param hue Hue ranging from 0 to 359.
+         * @param sat Saturation ranging from 0 to 255.
+         * @param val Brightness ranging from 0 to 255.
          * 
          * @return A 32-bit integer RGB888 color code.
          */
         static uint32_t hsv2rgb(uint16_t hue, uint8_t const sat = 0xff, uint8_t const val = 0xff);
 
         /**
-         * @brief Returns a packed 16-bit RGB565 color from its hue, saturation and value components.
+         * @brief Returns a packed 16-bit RGB565 color from its hue, saturation and brightness components.
          * 
-         * @param hue The color hue, ranging from 0 to 359.
-         * @param sat The color saturation, ranging from 0 to 255.
-         * @param val The color value, ranging from 0 to 255.
+         * @param hue Hue ranging from 0 to 359.
+         * @param sat Saturation ranging from 0 to 255.
+         * @param val Brightness ranging from 0 to 255.
          * 
          * @return A 16-bit integer RGB565 color code.
          */
@@ -69,7 +68,7 @@ class Color {
  * ----------------------------------------------------------------------------
  * ESPboy Library
  * ----------------------------------------------------------------------------
- * Copyright (c) 2021 Stéphane Calderoni (https://github.com/m1cr0lab)
+ * Copyright (c) 2021-2022 Stéphane Calderoni (https://github.com/m1cr0lab)
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

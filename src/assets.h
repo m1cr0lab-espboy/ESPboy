@@ -1,12 +1,11 @@
-/*
+/**
  * ----------------------------------------------------------------------------
- * ESPboy Library
- * ----------------------------------------------------------------------------
- * Copyright (c) 2021 Stéphane Calderoni (https://github.com/m1cr0lab)
- * ----------------------------------------------------------------------------
- * ESPboy Logo
+ * @file   assets.h
+ * @author Stéphane Calderoni (https://github.com/m1cr0lab)
+ * @brief  ESPboy logo
  * ----------------------------------------------------------------------------
  */
+
 #pragma once
 
 #include <Arduino.h>
@@ -72,7 +71,7 @@ static uint8_t const constexpr TINY_M1CR0LAB_LOGO[] PROGMEM = {
  * ----------------------------------------------------------------------------
  * ESPboy Library
  * ----------------------------------------------------------------------------
- * Copyright (c) 2021 Stéphane Calderoni (https://github.com/m1cr0lab)
+ * Copyright (c) 2021-2022 Stéphane Calderoni (https://github.com/m1cr0lab)
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

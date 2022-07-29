@@ -1,12 +1,11 @@
-/*
+/**
  * ----------------------------------------------------------------------------
- * ESPboy Library
- * ----------------------------------------------------------------------------
- * Copyright (c) 2021 Stéphane Calderoni (https://github.com/m1cr0lab)
- * ----------------------------------------------------------------------------
- * ESPboy Primary Controller
+ * @file   ESPboy.h
+ * @author Stéphane Calderoni (https://github.com/m1cr0lab)
+ * @brief  ESPboy primary controller
  * ----------------------------------------------------------------------------
  */
+
 #pragma once
 
 #define LGFX_ESPBOY
@@ -18,7 +17,7 @@
 #include <Adafruit_MCP4725.h>
 #include "Button.h"
 #include "NeoPixel.h"
-#include "espboy-logo.h"
+#include "assets.h"
 
 // To please Roman 😉
 uint8_t constexpr PAD_LEFT  = 0x01;
@@ -76,27 +75,27 @@ class ESPboy {
     public:
 
         /**
-         * @brief The MCP4725 DAC controller.
+         * @brief MCP4725 DAC controller.
          */
         Adafruit_MCP4725 dac;
 
         /**
-         * @brief The MCP23017 I/O expander controller.
+         * @brief MCP23017 I/O expander controller.
          */
         Adafruit_MCP23X17 mcp;
 
         /**
-         * @brief The display controller.
+         * @brief Display controller.
          */
         LGFX tft;
 
         /**
-         * @brief The push button controller.
+         * @brief Push button controller.
          */
         Button button;
 
         /**
-         * @brief The NeoPixel LED controller.
+         * @brief NeoPixel LED controller.
          */
         NeoPixel pixel;
 
@@ -119,11 +118,11 @@ class ESPboy {
         /**
          * @brief Initializes the ESPboy driver by displaying a custom monochromatic logo at startup.
          * 
-         * @param logo_width  The width of the logo image.
-         * @param logo_height The height of the logo image.
+         * @param logo_width  Logo width.
+         * @param logo_height Logo height.
          * @param logo_bitmap An array of 8-bit integers defining the logo bitmap.
          * @param logo_color  Logo display color in 16-bit format (RGB565).
-         * @param wait_ms     The time length in milliseconds during which the logo must remain displayed.
+         * @param wait_ms     Time length in milliseconds during which the logo must remain displayed.
          */
         void begin(
             uint8_t  const logo_width,
@@ -136,10 +135,10 @@ class ESPboy {
         /**
          * @brief Initializes the ESPboy driver by displaying a custom 16-bit color logo at startup.
          * 
-         * @param logo_width    The width of the logo image.
-         * @param logo_height   The height of the logo image.
+         * @param logo_width    Logo width.
+         * @param logo_height   Logo height.
          * @param logo_colormap An array of 16-bit integers defining the logo colormap in RGB565 space.
-         * @param wait_ms       The time length in milliseconds during which the logo must remain displayed.
+         * @param wait_ms       Time length in milliseconds during which the logo must remain displayed.
          */
         void begin(
             uint8_t  const logo_width,
@@ -176,14 +175,14 @@ class ESPboy {
         uint8_t getKeys();
 
         /**
-         * @brief The display frequency.
+         * @brief Display frequency.
          * 
          * @return The current number of frames per second.
          */
         uint32_t fps() const;
 
         /**
-         * @brief The current status of the screen brightness dimmer.
+         * @brief Current status of the screen brightness dimmer.
          * 
          * @return true if the screen brightness dimmer is active,
          *         false otherwise.
@@ -203,9 +202,9 @@ class ESPboy {
         /**
          * @brief Sets the brightness level of the screen.
          * 
-         * @param level Screen brightness level ranging from 0 (turned off) to 4095 (fully enlightened).
+         * @param brightness Screen brightness ranging from 0 (turned off) to 4095 (fully enlightened).
          */
-        void dim(uint16_t const level);
+        void dim(uint16_t const brightness);
 
 };
 
@@ -218,7 +217,7 @@ extern ESPboy espboy;
  * ----------------------------------------------------------------------------
  * ESPboy Library
  * ----------------------------------------------------------------------------
- * Copyright (c) 2021 Stéphane Calderoni (https://github.com/m1cr0lab)
+ * Copyright (c) 2021-2022 Stéphane Calderoni (https://github.com/m1cr0lab)
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

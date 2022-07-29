@@ -1,17 +1,18 @@
-/*
+/**
  * ----------------------------------------------------------------------------
- * ESPboy Library
- * ----------------------------------------------------------------------------
- * Copyright (c) 2021 Stéphane Calderoni (https://github.com/m1cr0lab)
- * ----------------------------------------------------------------------------
- * ESPboy Primary Controller
+ * @file   ESPboy.cpp
+ * @author Stéphane Calderoni (https://github.com/m1cr0lab)
+ * @brief  ESPboy primary controller
  * ----------------------------------------------------------------------------
  */
+
 #include "ESPboy.h"
 
 ESPboy espboy;
 
 void ESPboy::begin(__FlashStringHelper const * const title, uint16 const color) {
+
+    if (_initialized) return;
 
     uint8_t len = strlen_P((PGM_P)title);
     char    buffer[len + 1];
@@ -32,6 +33,8 @@ void ESPboy::begin(char const * const title, uint16 const color) {
 
     tft.setTextColor(TFT_WHITE); // reset default color
     fadeIn();
+
+    _initialized = true;
 
 }
 
@@ -57,6 +60,8 @@ void ESPboy::begin(uint8_t const logo_width, uint8_t const logo_height, uint8_t 
     tft.setTextColor(TFT_WHITE); // reset default color
     fadeIn();
 
+    _initialized = true;
+
 }
 
 void ESPboy::begin(uint8_t const logo_width, uint8_t const logo_height, uint16_t const * const logo_colormap, uint16_t const wait_ms) {
@@ -79,6 +84,8 @@ void ESPboy::begin(uint8_t const logo_width, uint8_t const logo_height, uint16_t
 
     tft.setTextColor(TFT_WHITE); // reset default color
     fadeIn();
+
+    _initialized = true;
 
 }
 
@@ -204,9 +211,9 @@ void ESPboy::fadeOut() {
 
 }
 
-void ESPboy::dim(uint16_t const level) {
+void ESPboy::dim(uint16_t const brightness) {
 
-    switch (level) {
+    switch (brightness) {
 
         case _DAC_MIN:
             dac.setVoltage(0, false);
@@ -217,7 +224,7 @@ void ESPboy::dim(uint16_t const level) {
             break;
         
         default:
-            dac.setVoltage(level < 4095 ? level : 4095, false);
+            dac.setVoltage(brightness < 4095 ? brightness : 4095, false);
 
     }
 
@@ -256,7 +263,7 @@ void ESPboy::_fade() {
  * ----------------------------------------------------------------------------
  * ESPboy Library
  * ----------------------------------------------------------------------------
- * Copyright (c) 2021 Stéphane Calderoni (https://github.com/m1cr0lab)
+ * Copyright (c) 2021-2022 Stéphane Calderoni (https://github.com/m1cr0lab)
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

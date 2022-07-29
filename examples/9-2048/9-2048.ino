@@ -1,17 +1,20 @@
-/*
+/**
  * ----------------------------------------------------------------------------
- * 2048 game remake
- * ----------------------------------------------------------------------------
- * Copyright (c) 2021 Stéphane Calderoni (https://github.com/m1cr0lab)
- * Copyright (c) 2014 Gabriele Cirulli   (https://github.com/gabrielecirulli)
- * ----------------------------------------------------------------------------
- * You must have heard of this famous game...
- * ----------------------------------------------------------------------------
- * 2048 is a single-player sliding tile puzzle video game written by Italian
- * web developer Gabriele Cirulli. The objective of the game is to slide
- * numbered tiles on a grid to combine them to create a tile with the number
- * 2048. However, one can continue to play the game after reaching the goal,
- * creating tiles with larger numbers.
+ * @file   9-2048.ino
+ * @author Stéphane Calderoni (https://github.com/m1cr0lab)
+ * @brief  Remake of the famous game you probably know.
+ * 
+ * @note 2048 is a single-player sliding tile puzzle video game written by
+ *       Italian web developer Gabriele Cirulli. The objective of the game is
+ *       to slide numbered tiles on a grid to combine them to create a tile
+ *       with the number 2048. However, one can continue to play the game after
+ *       reaching the goal, creating tiles with larger numbers.
+ * 
+ *       2048 has been published on GitHub under MIT license in March 2014.
+ * 
+ * @see  https://github.com/gabrielecirulli/2048
+ * 
+ * @details You can play the original game online: https://play2048.co/
  * ----------------------------------------------------------------------------
  */
 
@@ -177,7 +180,7 @@ void collapse(uint8_t const i) {
         if (board[i][j] && board[i][j] == board[i][j+1]) {
             board[i][j]++;
             board[i][j+1] = 0;
-            if (board[i][j] == 11) espboy.pixel.flash(Color::hsv2rgb(120), 50, 3, 200);
+            if (board[i][j] == 11) espboy.pixel.rainbow(1000, 2);
             if (board[i][j] > higher) higher = board[i][j];
             score += 1 << board[i][j];
             free_tiles++;
@@ -262,6 +265,8 @@ void start() {
     free_tiles = 16;
     score = higher = moves = 0;
 
+    espboy.pixel.reset();
+
     addNewTile();
     addNewTile();
 
@@ -280,7 +285,7 @@ void play() {
 
 void loose() {
 
-    espboy.pixel.flash(Color::hsv2rgb(0), 50, 5, 200);
+    espboy.pixel.breathe(Color::hsv2rgb(0), 250, 0);
     state   = State::wait;
     wait_ms = millis();
 
@@ -389,7 +394,7 @@ void loop() {
  * ----------------------------------------------------------------------------
  * ESPboy Library
  * ----------------------------------------------------------------------------
- * Copyright (c) 2021 Stéphane Calderoni (https://github.com/m1cr0lab)
+ * Copyright (c) 2021-2022 Stéphane Calderoni (https://github.com/m1cr0lab)
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -403,27 +408,5 @@ void loop() {
  * 
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
- * ----------------------------------------------------------------------------
- * 2048 (original game) MIT License (MIT)
- * ----------------------------------------------------------------------------
- * Copyright (c) 2014 Gabriele Cirulli
- * 
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- * 
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
  * ----------------------------------------------------------------------------
  */

@@ -1,10 +1,8 @@
-/*
+/**
  * ----------------------------------------------------------------------------
- * Snake game
- * ----------------------------------------------------------------------------
- * Copyright (c) 2021 Stéphane Calderoni (https://github.com/m1cr0lab)
- * ----------------------------------------------------------------------------
- * A simple remake of the famous game
+ * @file   7-snake.ino
+ * @author Stéphane Calderoni (https://github.com/m1cr0lab)
+ * @brief  Remake of the famous game you probably know.
  * ----------------------------------------------------------------------------
  */
 
@@ -226,7 +224,7 @@ void update() {
     if (snake.eatApple()) {
         snake.extend();
         spawnApple();
-        espboy.pixel.flash(Color::hsv2rgb(30), 50);
+        espboy.pixel.breathe(Color::hsv2rgb(30), 300);
     }
 
     displayScore(0x8410);
@@ -270,7 +268,7 @@ void loop() {
  * ----------------------------------------------------------------------------
  * ESPboy Library
  * ----------------------------------------------------------------------------
- * Copyright (c) 2021 Stéphane Calderoni (https://github.com/m1cr0lab)
+ * Copyright (c) 2021-2022 Stéphane Calderoni (https://github.com/m1cr0lab)
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

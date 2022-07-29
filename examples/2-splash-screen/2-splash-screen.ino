@@ -1,17 +1,54 @@
-/*
- * ----------------------------------------------------------------------------------------------------------------------
- * Startup logo
- * ----------------------------------------------------------------------------------------------------------------------
- * Copyright (c) 2021 Stéphane Calderoni (https://github.com/m1cr0lab)
- * ----------------------------------------------------------------------------------------------------------------------
- * How to customize the startup screen
- * ----------------------------------------------------------------------------------------------------------------------
- * The different ways to handle the startup screen:
+/**
+ * ------------------------------------------------------------------------------------------------------------------------------
+ * @file   2-splash-screen.ino
+ * @author Stéphane Calderoni (https://github.com/m1cr0lab)
+ * @brief  The different ways to handle the splash screen.
  * 
- * espboy.begin();                                     -> display the default ESPboy logo
- * espboy.begin(width, height, bitmap,   color, wait); -> default logo followed by your custom monochromatic logo
- * espboy.begin(width, height, colormap, wait);        -> default logo followed by your custom 16-bit (RGB565) color logo
- * ----------------------------------------------------------------------------------------------------------------------
+ * @note   Default splash screen:
+ * 
+ *           espboy.begin()
+ * 
+ *         To display your custom logo after the default splash screen:
+ * 
+ *           - monochromatic logo (bitmap):
+ * 
+ *               espboy.begin(width, height, bitmap, color, wait)
+ * 
+ *             where:
+ *               - width:  the logo width.
+ *               - height: the logo height.
+ *               - bitmap: an array of 8-bit integers defining the logo bitmap.
+ *               - color:  the logo display color in 16-bit (RGB565) format (0xffff by default).
+ *               - wait:   the time length in milliseconds during which the logo must remain displayed (1000 ms by default).
+ * 
+ *           - RGB565 color logo (colormap):
+ * 
+ *               espboy.begin(width, height, colormap, wait)
+ * 
+ *             where:
+ *               - width:    the logo width.
+ *               - height:   the logo height.
+ *               - colormap: an array of 16-bit integers defining the logo colormap in RGB565 space.
+ *               - wait:     the time length in milliseconds during which the logo must remain displayed (1000 ms by default).
+ * 
+ * @details Note that for color settings you can use the Color toolbox:
+ * 
+ *            Color::rgb565(red, green, blue)
+ * 
+ *              where:
+ *                - red:   the red level   (ranging from 0 to 255).
+ *                - green: the green level (ranging from 0 to 255).
+ *                - blue:  the blue level  (ranging from 0 to 255).
+ * 
+ *            Color::hsv2rgb565(hue, saturation, brightness)
+ * 
+ *              where:
+ *                - hue:        the color hue        (ranging from 0 to 359).
+ *                - saturation: the color saturation (ranging from 0 to 255, 0xff by default).
+ *                - brightness: the color brightness (ranging from 0 to 255, 0xff by default).
+ * 
+ *            Both methods return a packed 16-bit integer RGB565 color code.
+ * ------------------------------------------------------------------------------------------------------------------------------
  */
 
 #include <ESPboy.h>
@@ -104,7 +141,7 @@ static uint16_t const constexpr COLORMAP[] PROGMEM = {
 
 void setup() {
 
-    // Try one of these logos:
+    // Choose from:
     // espboy.begin(28, 34, BITMAP, 0xffff, 2000);
     // espboy.begin(35, 38, COLORMAP, 2000);
 
@@ -125,7 +162,7 @@ void loop() {
  * ----------------------------------------------------------------------------
  * ESPboy Library
  * ----------------------------------------------------------------------------
- * Copyright (c) 2021 Stéphane Calderoni (https://github.com/m1cr0lab)
+ * Copyright (c) 2021-2022 Stéphane Calderoni (https://github.com/m1cr0lab)
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

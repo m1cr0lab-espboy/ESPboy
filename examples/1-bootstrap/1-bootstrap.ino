@@ -1,10 +1,8 @@
-/*
+/**
  * ----------------------------------------------------------------------------
- * Getting started with the ESPboy handheld
- * ----------------------------------------------------------------------------
- * Copyright (c) 2021 Stéphane Calderoni (https://github.com/m1cr0lab)
- * ----------------------------------------------------------------------------
- * The bare minimum to start coding with ESPboy library
+ * @file   1-bootstrap.ino
+ * @author Stéphane Calderoni (https://github.com/m1cr0lab)
+ * @brief  The bare minimum to start coding with ESPboy library.
  * ----------------------------------------------------------------------------
  */
 
@@ -26,7 +24,7 @@ void loop() {
  * ----------------------------------------------------------------------------
  * ESPboy Library
  * ----------------------------------------------------------------------------
- * Copyright (c) 2021 Stéphane Calderoni (https://github.com/m1cr0lab)
+ * Copyright (c) 2021-2022 Stéphane Calderoni (https://github.com/m1cr0lab)
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
