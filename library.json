@@ -1,6 +1,6 @@
 {
     "name": "ESPboy",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "description": "This library provides a driver for the ESPboy (Wemos D1 mini - ESP8266) multi gadget handheld created by Roman Sokolov. Experiment with retro game programming, IoT, and STEAM education while having fun. See more on https://www.espboy.com/.",
     "keywords": "espboy, esp8266, retrogaming, handheld, iot, stem-education",
     "license": "GPL-3.0",
