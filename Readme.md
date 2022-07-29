@@ -2,7 +2,7 @@
 
 <img src="https://espboy.m1cr0lab.com/assets/espboy2-312x552.png" width="156" height="276" align="right" alt="ESPboy2">
 
-This library provides a driver for the [ESPboy][espboy] multi-gadget handheld created by Roman Sokolov. It gives you easy control over all its peripherals (128x128 TFT screen, 8 push buttons, and *NeoPixel* RGB LED).
+This library provides a driver for the [ESPboy][espboy] multi-gadget handheld created by [Roman Sokolov][roman]. It gives you easy control over all its peripherals (128x128 TFT screen, 8 push buttons, and *NeoPixel* RGB LED).
 
 ESPboy library relies on the following dependencies:
 
@@ -44,6 +44,7 @@ I also thank [tobozo][tobozo], who helped me to configure the display device whe
 
 
 [espboy]:     https://www.espboy.com/
+[roman]:      https://github.com/ESPboy-edu
 [mcp23017]:   https://github.com/adafruit/Adafruit-MCP23017-Arduino-Library
 [mcp4725]:    https://github.com/adafruit/Adafruit_MCP4725
 [lovyangfx]:  https://github.com/lovyan03/LovyanGFX
