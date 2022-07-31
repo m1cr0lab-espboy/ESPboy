@@ -38,7 +38,7 @@ Please [read the user guide][doc] for more details.
 
 I want to thank the authors of [Adafruit MCP23017][mcp23017], [Adafruit MCP4725][mcp4725], and [LovyanGFX][lovyangfx] libraries, without whom the ESPboy library would not be what it is.
 
-In particular, I warmly thank [lovyan03][lovyan03], who kindly agreed to [add support for ESP8266][lovyan8266] in [LovyanGFX][lovyangfx] and, more specifically, for the ESPboy, to make our lives easier with his outstanding graphics display driver. You can thank him by starring :star: the [LovyanGFX][lovyangfx] library.
+In particular, I warmly thank [lovyan03][lovyan03], who kindly agreed to [add support for ESP8266 in LovyanGFX][lovyan8266] and, more specifically, for the ESPboy, to make our lives easier with his outstanding graphics display driver. You can thank him by starring :star: the [LovyanGFX][lovyangfx] library.
 
 I also thank [tobozo][tobozo], who helped me to configure the display device when I decided to use the LovyanGFX library for the ESPboy.
 
