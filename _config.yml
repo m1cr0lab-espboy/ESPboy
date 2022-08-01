@@ -1,0 +1,10 @@
+title: "ESPboy Library"
+author: "m1cr0lab"
+timezone: Indian/Reunion
+
+sass:
+  style: compressed
+  sourcemap: never
+
+plugins:
+  - jemoji

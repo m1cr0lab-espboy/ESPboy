@@ -1,0 +1,148 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono');
+
+html {
+    font-family: Roboto, sans-serif;
+    font-size: 12pt;
+    background-color: hsl(210, 10, 7);
+    color: hsl(210, 20, 50);
+    line-height: 1.75rem;
+    text-align: justify;
+    scroll-behavior: smooth;
+}
+
+body {
+    display: grid;
+    justify-items: center;
+    margin: 0 2em 4em 2em;
+}
+
+.page {
+    max-width: 768px;
+}
+
+h1, h2, h3 {
+    margin: 2em 0 1.25em 0;
+    color: #fff;
+}
+
+a {
+    text-decoration: none;
+    color: hsl(210, 100, 60);
+    &:hover { color: hsl(210, 100, 70); }
+    &.button {
+        display: inline-block;
+        margin: .5em auto;
+        padding: .5rem 1rem;
+        border-radius: 8px;
+        background: linear-gradient(hsl(210, 100, 50), hsl(210, 100, 30));
+        color: #fff;
+        box-shadow: 0 4px 8px #000;
+        &:hover { background: linear-gradient(hsl(210, 100, 60), hsl(210, 100, 40)); }
+    }
+}
+
+.repo {
+    margin: -.5em 0 2em 0;
+
+}
+
+.espboy {
+
+    position: relative;
+    width: 272px;
+    height: 512px;
+    background-image: url('../images/espboy-272x512.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    image-rendering: pixelated;
+    filter: drop-shadow(0 4px 8px #000);
+
+    $original_screen_size: 184px;
+    $small_screen_size:    128px;
+    $tiny_screen_size:     92px;
+
+    img {
+        position: absolute;
+        left: 44px;
+        top:  43px;
+        width:  $original_screen_size;
+        height: $original_screen_size;
+        image-rendering: pixelated;
+    }
+
+    &.small {
+
+        $factor: $small_screen_size / $original_screen_size;
+
+        width:  272px * $factor;
+        height: 512px * $factor;
+
+        img {
+            width:  $small_screen_size;
+            height: $small_screen_size;
+            left: 44px * $factor;
+            top:  43px * $factor;
+        }
+    }
+
+    &.tiny {
+
+        $factor: $tiny_screen_size / $original_screen_size;
+
+        width:  272px * $factor;
+        height: 512px * $factor;
+
+        img {
+            width:  $tiny_screen_size;
+            height: $tiny_screen_size;
+            left: 44px * $factor;
+            top:  44px * $factor;
+        }
+
+    }
+
+}
+
+.note {
+    width: 50%;
+    margin: 1.5em auto;
+    padding: .5em 1em;
+    border-radius: 1em;
+    background-color: hsl(210, 30, 12);
+    box-shadow: 0 4px 8px rgba(#000, .25);
+}
+
+.media {
+    width: 100%;
+    margin: .5rem auto;
+}
+
+.center {
+    text-align: center;
+}
+
+.round-10 {
+    border-radius: 8px;
+}
+
+.shadow {
+    box-shadow: 0 4px 8px #000;
+}
+
+.emphasis {
+    color: hsl(180, 50, 50);
+}
+
+.emoji {
+    vertical-align: -15%;
+}
+
+.github {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin-right: .5em;
+    vertical-align: -8%;
+    background-image: url('../images/github.svg');
+}

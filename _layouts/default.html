@@ -1,0 +1,30 @@
+{%- assign mod_timestamp = "now" | date: "%s" | plus: 0 -%}
+{%- assign modified_time = mod_timestamp | date: "%FT%T%z" -%}
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>{{ site.title }}</title>
+    <link rel="stylesheet" href="{{ 'assets/css/style.css' | relative_url }}">
+    <link rel="shortcut icon" href="{{ 'favicon.ico' | relative_url }}" type="image/x-icon">
+    <meta name="author" content="Stéphane Calderoni">
+    <meta name="description" content="This library provides a driver for the ESPboy (Wemos D1 mini - ESP8266) multi gadget handheld created by Roman Sokolov. Experiment with retro game programming, IoT, and STEAM education while having fun.">
+    <meta name="keywords" content="espboy, esp8266, retrogaming, handheld, iot, stem-education">
+    <meta property="og:type" content="library">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:title" content="{{ site.title }}">
+    <meta property="og:site_name" content="m1cr0lab tinkers with the ESPboy">
+    <meta property="og:description" content="This library provides a driver for the ESPboy (Wemos D1 mini - ESP8266) multi gadget handheld created by Roman Sokolov. Experiment with retro game programming, IoT, and STEAM education while having fun.">
+    <meta property="og:image" content="{{ 'assets/images/espboy-256x256.png' | relative_url }}">
+    <meta property="article:author" content="Stéphane Calderoni">
+    <meta property="article:published_time" content="2022-05-01T19:00:00+0400">
+    <meta property="article:modified_time" content="{{ modified_time }}">
+</head>
+
+<body>
+    <div class="page">
+        {{ content }}
+    </div>
+</body>
+
+</html>
